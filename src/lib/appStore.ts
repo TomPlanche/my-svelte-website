@@ -18,6 +18,7 @@ type T_state = {
   lastFMHandlerInstance: LastFM_handler
 
   toggleTheme: () => void
+  getTheme: () => T_THEME
 }
 // Other(s)
 // END VARIABLES ======================================================================================= END VARIABLES
@@ -33,6 +34,10 @@ export const store = writable<T_state>({
 
   toggleTheme()  {
     this.theme = this.theme === 'dark' ? 'light' : 'dark'
+  },
+
+  getTheme() {
+    return this.theme;
   }
 } as T_state);
 export const cursorStore = writable<T_CursorOptions>({

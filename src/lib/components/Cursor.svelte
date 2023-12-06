@@ -1,8 +1,8 @@
 <script lang="ts">
 	// Imports
     import {spring} from "svelte/motion";
-	import {cursorStore} from "$lib/appStore";
-	import type {T_CursorOptions} from "$lib/types";
+	import {cursorStore} from "../appStore";
+	import type {T_CursorOptions} from "../types";
 
 	// Variables
 	const cursor_base = {size: 15};
@@ -13,7 +13,7 @@
 
 	let hasMoved = false as boolean;
 
-	let innerSvg: HTMLImageElement;
+	let innerSvg: string;
 
 
 	let innerHtml: HTMLElement;
@@ -26,8 +26,7 @@
 			// params.svg can be undefined, a svg string or a boolean
 			if (params.svg) {
 				opacity.set(params.opacity ?? 0);
-				innerSvg = new Image();
-				innerSvg.src = params.svg;
+				innerSvg = params.svg;
 			}
 
 			opacity.set(params.opacity ?? 0.5);
@@ -88,17 +87,19 @@
 		r={$size}
 		style="opacity: {$opacity};"
 	/>
-
-	{#if innerSvg !== undefined}
-		<image
-			xlink:href={innerSvg.src}
-			x={$coords.x - $size}
-			y={$coords.y - $size}
-			width={$size * 2}
-			height={$size * 2}
-		/>
-	{/if}
 </svg>
+
+{#if innerSvg}
+	<img
+		src={innerSvg}
+		alt="Github gif"
+		style="
+			height: {$size * 2}px;
+			width: {$size * 2}px;
+			transform: translate({$coords.x - $size}px, {$coords.y - $size}px);
+		"
+	/>
+{/if}
 
 <div
 	class="html-container"
@@ -114,6 +115,9 @@
 <style lang="scss">
 	svg {
 		position: absolute;
+		top: 0;
+		left: 0;
+
 		pointer-events: none;
 
 		width: 100%;
@@ -126,18 +130,28 @@
 		}
 	}
 
-	.html-container {
+	img {
 		position: absolute;
 		top: 0;
 		left: 0;
 
-		min-height: 1px;
-		min-width: 1px;
+		pointer-events: none;
+	}
+
+	.html-container {
+		position: absolute;
+		top: 0;
+		left: 0;
 
 		background: red;
 
 		z-index: 99999;
 
 		pointer-events: none;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
 	}
 </style>

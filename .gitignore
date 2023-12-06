@@ -8,3 +8,15 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Folders
+node_modules/
+build/
+.svelte-kit/
+.idea/
+src/lib/fonts
+
+# Files
+.commitignore
+commit_message.md
+yarn.lock
