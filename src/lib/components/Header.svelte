@@ -1,14 +1,16 @@
 <script lang="ts">
   // Imports
   import {gsap} from "gsap/dist/gsap";
-  // import ScrollTrigger from 'gsap/dist/ScrollTrigger';
   import ScrambleTextPlugin from 'gsap/dist/ScrambleTextPlugin';
+  import ScrollTrigger from 'gsap/dist/ScrollTrigger';
   gsap.registerPlugin(ScrambleTextPlugin);
+  gsap.registerPlugin(ScrollTrigger);
 
   import {style_vars} from "$lib/globals";
   import {store} from "$lib/appStore";
   import {onMount} from "svelte";
   import Hoverable from "$lib/components/Hoverable.svelte";
+  import MagnetikContainer from "$lib/components/magnetik/MagnetikContainer.svelte";
 
   // Variables
 
@@ -35,23 +37,42 @@
   let buttonRef;
   let currentArrayIndex = lightIndex
   let changeThemeBtnHovered: boolean = false;
+  let hasBeenHovered: boolean = false;
 
   let clockInterval: number;
   let changeThemeBtnInterval: number;
 
   // Watchers
-
-
   $: {
-    handleThemeBtnHovered(changeThemeBtnHovered);
+    hasBeenHovered && handleThemeBtnHovered(changeThemeBtnHovered);
+  }
+
+  $: if (container) {
+    const scrollTriggerTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: window.document.body,
+          start: 'top top',
+          end: "+=35%",
+          scrub: 1,
+        }
+      });
+
+    scrollTriggerTimeline
+      .to(container, {
+        duration: 1,
+        width: '100vw',
+        top: 0,
+        borderRadius: 0,
+      })
+
   }
 
   // Functions
   const changeEmoji = () => {
-    console.log(`currentArrayIndex: ${currentArrayIndex}`);
-    currentArrayIndex = (currentArrayIndex + 1) % moonsArray.length;
-
-    buttonRef.innerHTML = moonsArray[currentArrayIndex];
+    if (buttonRef) {
+      currentArrayIndex = (currentArrayIndex + 1) % moonsArray.length;
+      buttonRef.innerHTML = moonsArray[currentArrayIndex];
+    }
   }
 
   const handleThemeBtnHovered = async (newVal) => {
@@ -62,7 +83,7 @@
     } else {
       clearInterval(changeThemeBtnInterval);
 
-      const targetIndex = $store.getTheme() === "dark" ? lightIndex : darkIndex;
+      const targetIndex = $store.theme === "dark" ? lightIndex : darkIndex;
       const changedToTarget = moonsArray.length - Math.abs(currentArrayIndex - targetIndex);
 
       for (let i = 0; i < changedToTarget; i++) {
@@ -74,29 +95,27 @@
   }
 
   // On Mount
-    onMount(() => {
-        // Set the clock
-        clockInterval = setInterval(() => {
-            time = new Date().toLocaleTimeString('fr-FR', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-        }, 1000);
+  onMount(() => {
+    // Set the clock
+    clockInterval = setInterval(() => {
+      time = new Date().toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }, 100);
 
-
-        gsap.timeline({repeat: -1, repeatDelay: 3})
-          .to(title, {
-            duration: () => Math.random() * 2 + 2,
-            scrambleText: {
-              text: "<TomPlanche \\>",
-              chars: "@&][{}()#%?!",
-              // speed: Math.random() * 0.5 + 0.25,
-              revealDelay: Math.random() * 0.5 + 0.1,
-              // ease: "power3.inOut",
-            },
-          })
-        });
+    gsap.timeline({repeat: -1, repeatDelay: 3})
+      .to(title, {
+        duration: () => Math.random() * 2 + 2,
+        scrambleText: {
+          text: "<TomPlanche \\>",
+          chars: "@&][{}()#%?!", // speed: Math.random() * 0.5 + 0.25,
+            revealDelay: Math.random() * 0.5 + 0.1,
+            // ease: "power3.inOut",
+          },
+        })
+      });
 </script>
 
 
@@ -119,23 +138,35 @@
           <img src="/imgs/github-mark-white.svg" alt="Github logo">
       </Hoverable>
       <span>{ time }</span>
-      <button
-          class="no-style"
-
-          on:mouseenter={() => changeThemeBtnHovered = true}
-          on:mouseleave={() => changeThemeBtnHovered = false}
-
-          on:click={() => $store.toggleTheme()}
-
-          bind:this={buttonRef}
+      <MagnetikContainer
+          field_size="2"
       >
-        { moonsArray[darkIndex] }
-      </button>
+          <Hoverable>
+              <button
+                  class="no-style"
+
+                  on:mouseenter={() => {hasBeenHovered = true; changeThemeBtnHovered = true}}
+                  on:mouseleave={() => changeThemeBtnHovered = false}
+
+                  on:click={() => {
+                    document.body.classList.toggle($store.theme);
+                    $store.toggleTheme();
+                    document.body.classList.toggle($store.theme);
+                  }}
+
+                  bind:this={buttonRef}
+              >
+                { moonsArray[lightIndex] }
+              </button>
+          </Hoverable>
+      </MagnetikContainer>
     </div>
 </div>
 
 <style lang="scss">
 .container {
+  @import "../styles/variables";
+
   width: 90vw;
 
   position: fixed;
@@ -150,13 +181,17 @@
   border-radius: 1rem;
 
   // Blurry background
-  background-color: #eeeeee25;
+  background-color: $header-bg-dark;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px); // Compatible with Safari
 
-  div {
-    @import "../styles/variables";
+  transition: background-color 0.5s ease-in-out;
 
+  :global(body.light) & {
+    background-color: $header-bg-light;
+  }
+
+  div {
     display: flex;
     flex-direction: row;
     justify-content: center;

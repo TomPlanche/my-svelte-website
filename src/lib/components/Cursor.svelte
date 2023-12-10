@@ -8,7 +8,10 @@
 	const cursor_base = {size: 15};
 
 	const opacity = spring(0);
-	const coords = spring({x: 0, y: 0}, {stiffness: 0.1, damping: 0.4});
+	const coords = spring({
+		x: 0,
+		y: 0,
+	}, {stiffness: 0.3, damping: 0.8});
     const size = spring(cursor_base.size);
 
 	let hasMoved = false as boolean;
@@ -67,7 +70,7 @@
 
 		coords.set({
 			x: e.clientX,
-			y: e.clientY
+			y: e.clientY,
 		})
 	}}
 	on:mousedown={() => {
@@ -101,20 +104,22 @@
 	/>
 {/if}
 
-<div
-	class="html-container"
-	style="transform: translate({$coords.x - innerHtmlSize.width / 2}px, {$coords.y - innerHtmlSize.height / 2}px); opacity: {$opacity};"
+{#if ($$slots.default)}
+	<div
+		class="html-container"
+		style="transform: translate({$coords.x}px, {$coords.y}px); opacity: {$opacity};"
 
-	bind:this={innerHtml}
->
-	<slot />
-</div>
+		bind:this={innerHtml}
+	>
+		<slot />
+	</div>
+{/if}
 
 
 
 <style lang="scss">
 	svg {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 
@@ -143,15 +148,8 @@
 		top: 0;
 		left: 0;
 
-		background: red;
-
 		z-index: 99999;
 
 		pointer-events: none;
-
-		img {
-			width: 100%;
-			height: 100%;
-		}
 	}
 </style>

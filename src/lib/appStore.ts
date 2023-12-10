@@ -6,20 +6,20 @@
 
 // IMPORTS ===================================================================================================  IMPORTS
 import { writable } from 'svelte/store';
-import type {T_CursorOptions} from "./types";
-import LastFM_handler from "$lib/LastFM_handler";
+import type { T_CursorOptions } from './types';
+import LastFM_handler from '$lib/LastFM_handler';
 // END IMPORTS ==========================================================================================   END IMPORTS
 
 // VARIABLES ================================================================================================ VARIABLE
 // Type(s)
-type T_THEME = 'dark' | 'light'
-type T_state = {
-  theme: T_THEME,
-  lastFMHandlerInstance: LastFM_handler
+export type T_THEME = 'dark' | 'light';
+export type T_state = {
+	theme: T_THEME;
+	lastFMHandlerInstance: LastFM_handler;
 
-  toggleTheme: () => void
-  getTheme: () => T_THEME
-}
+	toggleTheme: () => void;
+	getTheme: () => T_THEME;
+};
 // Other(s)
 // END VARIABLES ======================================================================================= END VARIABLES
 
@@ -29,19 +29,17 @@ type T_state = {
 
 // CODE ========================================================================================================= CODE
 export const store = writable<T_state>({
-  theme: 'dark', // Set your default theme here,
-  lastFMHandlerInstance: LastFM_handler.getInstance("Tom_planche"),
+	theme: 'dark', // Set your default theme here,
+	lastFMHandlerInstance: LastFM_handler.getInstance('Tom_planche'),
 
-  toggleTheme()  {
-    this.theme = this.theme === 'dark' ? 'light' : 'dark'
-  },
-
-  getTheme() {
-    return this.theme;
-  }
+	toggleTheme() {
+		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
+		this.theme = this.theme === 'dark' ? 'light' : 'dark';
+		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
+	}
 } as T_state);
 export const cursorStore = writable<T_CursorOptions>({
-  isHover: false
+	isHover: false
 });
 // END CODE =======================================================================================  END COMPONENT
 

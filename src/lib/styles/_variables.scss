@@ -24,10 +24,15 @@ $gh-green-dark: #1d5927;
 $gh-border: #30363D;
 $gh-border-dark: #21262D;
 
+$app-bg-dark: $gh-bg;
+$app-bg-light: #e5e3de;
 
 $black: #02040a;
 $black-dimed: #02040a75;
 $blue: #679fc5;
+
+$header-bg-dark: #eeeeee25;
+$header-bg-light: #00000025;
 
 
 $white: #e8e4d9;
@@ -277,6 +282,55 @@ $footer-height: 5rem;
   font-style: normal;
 }
 
+/* Radikal */
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal Black.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal Bold.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal Thin.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radikal';
+  src: url('$lib/fonts/Radikal/Radikal UltraThin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+}
 
 /**
  * End of file src/SCSS/_variables.scss
