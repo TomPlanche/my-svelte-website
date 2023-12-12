@@ -1,21 +1,22 @@
 <script lang="ts">
-    import "$lib/styles/main.scss";
-    import {style_vars} from "$lib/globals";
-    import Header from "$lib/components/Header.svelte";
-    import Cursor from "$lib/components/Cursor.svelte";
+  import "$lib/styles/main.scss";
+  import {style_vars} from "$lib/globals";
+  import Header from "$lib/components/Header.svelte";
+  import Cursor from "$lib/components/Cursor.svelte";
 
-    let headerHeight = style_vars.header_height;
-    let padding = style_vars.main_padding;
-    let padding_top = `calc(2 * ${padding} + ${headerHeight})`;
+  let headerHeight = style_vars.header_height;
+  let padding = style_vars.main_padding;
+
+  export const padding_top = `calc(2 * ${padding} + ${headerHeight})`;
 </script>
 
 <main
-    style="padding-top: {padding_top};"
+        style="padding: 0 {padding}; padding-top: {padding_top};"
 >
-    <Header />
-    <Cursor />
+    <Header/>
+    <Cursor/>
 
-    <slot />
+    <slot/>
 </main>
 
 <style lang="scss">
@@ -28,7 +29,7 @@
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     cursor: none;
 

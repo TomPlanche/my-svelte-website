@@ -13,9 +13,9 @@
 
 // Other(s)
 export const style_vars = {
-  main_padding: "1.5rem",
-  header_height: '8vmin',
-}
+	main_padding: '2rem',
+	header_height: '8vmin'
+};
 // END VARIABLES ======================================================================================= END VARIABLES
 
 // FUNCTIONS ================================================================================================ FUNCTIONS
