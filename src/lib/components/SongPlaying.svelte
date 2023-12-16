@@ -8,7 +8,6 @@
   import {style_vars} from "$lib/globals";
   import {store} from "$lib/appStore";
   import type {T_RecentTracksTrackAll} from "$lib/LastFM_handler";
-  import {elasticOut} from "svelte/easing";
 
   // Variables
   // Props
@@ -219,7 +218,7 @@
     height: 4rem;
     max-height: 6rem;
     width: 4rem;
-    max-width: 22rem;
+    max-width: 20rem;
 
     border-radius: 8px;
     padding: 4px;

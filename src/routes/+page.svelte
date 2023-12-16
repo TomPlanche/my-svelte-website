@@ -9,11 +9,10 @@
 </script>
 
 <div
-    class="intro"
-    style="min-height: {pageMinHeight}"
+        class="intro"
 >
     <div
-        class="content"
+            class="content"
     >
         <h1>Tom Planche</h1>
         <h2>
@@ -22,16 +21,18 @@
         </h2>
     </div>
     <div
-        class="image"
+            class="image"
     >
         <MagnetikContainer
-            field_size="1.5"
-            field_force=".25"
+                field_size="1.5"
+                field_force=".25"
         >
-             <img
-                src="/imgs/imageCV.png"
-                alt="My Ugly Face"
-            />
+            <div class="img-container">
+                <img
+                        src="/imgs/imageCV.png"
+                        alt="My Ugly Face"
+                />
+            </div>
         </MagnetikContainer>
     </div>
 </div>
@@ -40,6 +41,7 @@
 
 <style lang="scss">
   .intro {
+    height: 100vh;
     width: 100vw;
 
     display: flex;
@@ -50,8 +52,6 @@
     @media (max-width: 860px) {
       flex-direction: column-reverse;
 
-      gap: 5rem;
-
       .content {
         padding: 0;
       }
@@ -59,48 +59,57 @@
 
     .content,
     .image {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
 
-        width: 50%;
-        height: 100%;
+      width: 50%;
+      height: 100%;
 
-        @media (max-width: 860px) {
-          width: 100%;
-          align-items: center;
+      @media (max-width: 860px) {
+        width: 100%;
+        align-items: center;
+
+        &.image {
+          justify-content: flex-end;
         }
+
+        &.content {
+          justify-content: flex-start;
+          padding-top: 5vh;
+        }
+      }
     }
 
     .content {
-        padding-left: 5rem;
+      padding-left: 5rem;
+
+      @media (max-width: 860px) {
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 7vw;
+        font-weight: 900;
+
+        font-family: "PP Mondwest", serif;
+      }
+
+      h2 {
+        font-size: 4vw;
+        font-weight: 400;
+
+      }
+
+      h1, h2 {
+        text-align: left;
+        font-family: "PP Mondwest", serif;
 
         @media (max-width: 860px) {
-          padding: 0;
+          text-align: center;
         }
-
-        h1 {
-            font-size: 5rem;
-            font-weight: 900;
-
-            font-family: "PP Mondwest", serif;
-        }
-
-        h2 {
-            font-size: 2rem;
-            font-weight: 400;
-            font-family: "PP Mondwest", serif;
-
-        }
-
-        h1, h2 {
-          text-align: left;
-
-            @media (max-width: 860px) {
-                text-align: center;
-            }
-        }
+      }
     }
 
     .image {
@@ -108,13 +117,23 @@
       justify-content: center;
       align-items: center;
 
-      img {
-          height: 45vmin;
-          width: auto;
+      .img-container {
+        height: 45vmin;
+        width: auto;
         border-radius: 4rem;
 
-        &:hover {
-          transform: scale(1.1);
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: auto;
+          border-radius: 4rem;
+
+          transition: transform .2s ease-in-out;
+
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
     }

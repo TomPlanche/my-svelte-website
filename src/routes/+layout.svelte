@@ -11,7 +11,7 @@
 </script>
 
 <main
-        style="padding: 0 {padding}; padding-top: {padding_top};"
+        style="padding: 0 {padding};"
 >
     <Header/>
     <Cursor/>
