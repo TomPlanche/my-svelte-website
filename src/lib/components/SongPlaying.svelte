@@ -184,6 +184,8 @@
             class="song_container"
             style={finalStyle}
 
+            aria-disabled="true"
+
             bind:this={container}
             on:click={handleClick}
 

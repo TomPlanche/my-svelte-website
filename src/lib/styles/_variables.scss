@@ -24,7 +24,7 @@ $gh-green-dark: #1d5927;
 $gh-border: #30363D;
 $gh-border-dark: #21262D;
 
-$app-bg-dark: $gh-bg;
+$app-bg-dark: #080a13;
 $app-bg-light: #e5e3de;
 
 $black: #02040a;
@@ -329,6 +329,22 @@ $footer-height: 5rem;
   font-family: 'Radikal';
   src: url('$lib/fonts/Radikal/Radikal UltraThin.woff2') format('woff2');
   font-weight: 100;
+  font-style: normal;
+}
+
+/* Hyperwave */
+@font-face {
+  font-family: 'Hyperwave';
+  src: url('$lib/fonts/Hyperwave Display.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Velura */
+@font-face {
+  font-family: 'Velura';
+  src: url('$lib/fonts/Velura-Personal License.otf') format('opentype');
+  font-weight: normal;
   font-style: normal;
 }
 

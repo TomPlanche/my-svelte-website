@@ -172,6 +172,7 @@
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 100;
 
   display: flex;
   flex-direction: row;

@@ -63,7 +63,7 @@
 	}
 </script>
 
-
+<!-- The window is used to get the mouse position -->
 <svelte:window
 	on:mousemove={(e) => {
 		!hasMoved && (hasMoved = true);
@@ -81,6 +81,7 @@
 	}}
 />
 
+<!-- The svg is always displayed -->
 <svg
 	aria-hidden="true"
 >
@@ -92,6 +93,7 @@
 	/>
 </svg>
 
+<!-- If there is a svg, then we display it -->
 {#if innerSvg}
 	<img
 		src={innerSvg}
@@ -104,6 +106,7 @@
 	/>
 {/if}
 
+<!-- If something is in the default slot, then we display it -->
 {#if ($$slots.default)}
 	<div
 		class="html-container"
