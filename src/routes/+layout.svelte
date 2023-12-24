@@ -1,11 +1,24 @@
 <script lang="ts">
-  import "$lib/styles/main.scss";
-  import {style_vars} from "$lib/globals";
+  // Imports
+  // import {gsap} from "gsap/dist/gsap";
+
   import Header from "$lib/components/Header.svelte";
   import Cursor from "$lib/components/Cursor.svelte";
+  import {style_vars} from "$lib/globals";
+  import "$lib/styles/main.scss";
+  import {type SvelteComponent} from "svelte";
+  import {store} from "$lib/appStore";
 
+  // Variables
   let headerHeight = style_vars.header_height;
   let padding = style_vars.main_padding;
+
+  // ref
+  let cursor: SvelteComponent;
+
+  $: if (cursor) {
+    $store.cursor = cursor;
+  }
 
   export const padding_top = `calc(2 * ${padding} + ${headerHeight})`;
 </script>
@@ -14,7 +27,7 @@
         style="padding: 0 {padding};"
 >
     <Header/>
-    <Cursor/>
+    <Cursor bind:this={cursor}/>
 
     <slot/>
 </main>
@@ -34,7 +47,8 @@
 
     cursor: none;
 
-    background-color: $app-bg-light;
+    background-color: $green-white;
+    color: $green-light;
     transition: background-color 0.3s ease-in-out;
 
     :global(body.dark) & {

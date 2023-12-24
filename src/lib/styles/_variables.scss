@@ -25,7 +25,17 @@ $gh-border: #30363D;
 $gh-border-dark: #21262D;
 
 $app-bg-dark: #080a13;
-$app-bg-light: #e5e3de;
+$app-bg-light: #DFDDD8;
+
+
+$green-dark: #092C19;
+
+$green-medium: #38634C;
+
+$green-light: #8B9C8F;
+$green-light-dimmed: #8B9C8F75;
+
+$green-white: #DFDDD8;
 
 $black: #02040a;
 $black-dimed: #02040a75;
@@ -346,6 +356,12 @@ $footer-height: 5rem;
   src: url('$lib/fonts/Velura-Personal License.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+}
+
+/* TEST ABC WHYTE */
+@font-face {
+  font-family: 'ABC Whyte';
+  src: url('$lib/fonts/ABC Whyte/ABC Whyte Variable/ABCWhyteVariable-Trial.woff2') format('woff2');
 }
 
 /**

@@ -1,7 +1,6 @@
 <script lang="ts">
 	// Imports
     import {spring} from "svelte/motion";
-	import {cursorStore} from "../appStore";
 	import type {T_CursorOptions} from "../types";
 
 	// Variables
@@ -24,7 +23,7 @@
 	let innerHtmlSize = {width: 0, height: 0};
 
 	// Functions
-	cursorStore.subscribe((params: T_CursorOptions) => {
+	export const setCursorParams = (params: T_CursorOptions) => {
 		if (params.isHover) {
 			// params.svg can be undefined, a svg string or a boolean
 			if (params.svg) {
@@ -44,7 +43,7 @@
 		}
 
 		size.set(params.scale ? cursor_base.size * params.scale : cursor_base.size);
-	});
+	};
 
 	// if hasMoved is false, then the cursor is not visible
 	$: if (!hasMoved) {
@@ -144,6 +143,7 @@
 		left: 0;
 
 		pointer-events: none;
+		z-index: 99999;
 	}
 
 	.html-container {

@@ -5,10 +5,10 @@
  */
 
 // IMPORTS ===================================================================================================  IMPORTS
+import type { SvelteComponent } from 'svelte';
 import { writable } from 'svelte/store';
 import LastFM_handler from '$lib/LastFM_handler';
 import { style_vars } from '$lib/globals';
-import type { T_CursorOptions } from './types';
 // END IMPORTS ==========================================================================================   END IMPORTS
 
 // VARIABLES ================================================================================================ VARIABLE
@@ -21,8 +21,12 @@ export type T_state = {
 	paddingTopEnd: string;
 	pageMinHeight: string;
 
+	// refs
+	cursor: SvelteComponent | null;
+
+	loadingAnimationIsDone: boolean;
+
 	toggleTheme: () => void;
-	getTheme: () => T_THEME;
 };
 
 // Other(s)
@@ -46,15 +50,14 @@ export const store = writable<T_state>({
 	paddingTopEnd: padding_top_end,
 	pageMinHeight: page_size_with_padding,
 
+	loadingAnimationIsDone: false,
+
 	toggleTheme() {
 		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
 		this.theme = this.theme === 'dark' ? 'light' : 'dark';
 		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
 	}
 } as T_state);
-export const cursorStore = writable<T_CursorOptions>({
-	isHover: false
-});
 // END CODE =======================================================================================  END COMPONENT
 
 /**

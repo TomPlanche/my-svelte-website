@@ -94,6 +94,19 @@
     }
   }
 
+  $: if ($store.loadingAnimationIsDone) {
+    gsap.fromTo(container, {
+      opacity: 0,
+      y: -100,
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: 0.5,
+      ease: "power3.out",
+    });
+  }
+
   // On Mount
   onMount(() => {
     // Set the clock
@@ -171,8 +184,10 @@
 
   position: fixed;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%);
   z-index: 100;
+
+  opacity: 0;
 
   display: flex;
   flex-direction: row;
@@ -188,8 +203,11 @@
 
   transition: background-color 0.5s ease-in-out;
 
+  color: $blue;
+
   :global(body.light) & {
-    background-color: $header-bg-light;
+    color: $green-dark;
+    background-color: $green-light-dimmed;
   }
 
   div {
@@ -202,8 +220,6 @@
       font-size: 2rem;
       font-family: "Neue Bit", serif;
       font-weight: 700;
-
-      color: $blue;
     }
 
     img, button {
@@ -217,15 +233,12 @@
       align-items: center;
 
       cursor: none;
-
     }
 
     span {
       font-size: 1rem;
       font-family: "Fraktion Mono", serif;
       font-weight: 700;
-
-      color: $blue;
 
       padding: 0 1rem;
     }

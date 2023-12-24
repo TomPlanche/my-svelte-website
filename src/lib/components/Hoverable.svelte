@@ -1,63 +1,57 @@
 <script lang="ts">
-    // Imports
-    import {cursorStore} from "../appStore";
-    import type {T_CursorOptions, T_OnEnter, T_OnLeave} from "../types";
+  // Imports
+  import type {T_CursorOptions, T_OnEnter, T_OnLeave} from "../types";
+  import {store} from "$lib/appStore";
 
-    // Variables
-    const defaultEnterOptions: T_CursorOptions = {
-        isHover: true,
-        scale: 2,
-        opacity: 0.5,
-    };
+  // Variables
+  const defaultEnterOptions: T_CursorOptions = {
+    isHover: true,
+    scale: 2,
+    opacity: 0.5,
+  };
 
-    const defaultLeaveOptions: T_CursorOptions = {
-        isHover: false,
-        scale: 1,
-        opacity: 1,
-        svg: undefined
-    };
+  const defaultLeaveOptions: T_CursorOptions = {
+    isHover: false,
+    scale: 1,
+    opacity: 1,
+    svg: undefined
+  };
 
-    // Functions
-    const defaultOnEnter: T_OnEnter = (
-        cursorOptions?: T_CursorOptions
-    ) => {
-      console.log(`defaultOnEnter with cursorOptions: ${JSON.stringify(cursorOptions)}`);
+  // Functions
+  const defaultOnEnter: T_OnEnter = (
+    cursorOptions?: T_CursorOptions
+  ) => {
+    console.log(`defaultOnEnter with cursorOptions: ${JSON.stringify(cursorOptions)}`);
 
-        cursorStore.update((state) => {
-            return {
-                ...state,
-                ...defaultEnterOptions,
-                ...cursorOptions,
-            };
-        });
-    }
+    $store.cursor.setCursorParams({
+      ...defaultEnterOptions,
+      ...cursorOptions,
+    });
+  }
 
-    const defaultOnLeave: T_OnLeave = (
-        cursorOptions?: T_CursorOptions
-    ) => {
-        cursorStore.update((state) => {
-            return {
-                ...state,
-                ...defaultLeaveOptions,
-                ...cursorOptions,
-            };
-        });
-    }
+  const defaultOnLeave: T_OnLeave = (
+    cursorOptions?: T_CursorOptions
+  ) => {
+    $store.cursor.setCursorParams({
+      ...defaultLeaveOptions,
+      ...cursorOptions,
+    });
+  }
 
 
-    // Props
-    export let onEnterOptions: T_CursorOptions = {
-        isHover: true,
-        scale: 2,
-    };
-    export let onLeaveOptions: T_CursorOptions = {
-        isHover: false,
-        scale: 1,
-    };
-    export let debug: boolean = false;
-    export let style: string = "";
+  // Props
+  export let onEnterOptions: T_CursorOptions = {
+    isHover: true,
+    scale: 2,
+  };
+  export let onLeaveOptions: T_CursorOptions = {
+    isHover: false,
+    scale: 1,
+  };
+  export let debug: boolean = false;
+  export let style: string = "";
 
-    $: style = debug ? "outline: 2px dotted red;" : "";
+  $: style = debug ? "outline: 2px dotted red;" : "";
 
 </script>
 
