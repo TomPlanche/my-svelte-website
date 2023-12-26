@@ -1,6 +1,7 @@
 <script lang="ts">
   // Imports
   import {onMount} from "svelte";
+  import {fade} from 'svelte/transition';
 
   import {gsap} from "gsap/dist/gsap";
   import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
@@ -13,8 +14,12 @@
   import MagnetikContainer from "$lib/components/magnetik/MagnetikContainer.svelte";
   import SongPlaying from "$lib/components/SongPlaying.svelte";
   import Hoverable from "$lib/components/Hoverable.svelte";
+  import Marquee from "$lib/components/Marquee.svelte";
+  import {style_vars} from "$lib/globals";
 
   // Variables
+  let padding = style_vars.main_padding;
+
   // references
   let content: HTMLElement;
   let image: HTMLElement;
@@ -46,12 +51,12 @@
         paddingTop: $store.paddingTopEnd,
       })
       .fromTo(titleContainer, {
-        transform: "translateY(-100%)",
-        fontSize: "4rem",
+        transform: `translateY(calc(-100% - ${padding})`,
+        fontSize: "5rem",
       }, {
         fontSize: "3rem",
         transform: "translateY(0)",
-        ease: "power4.out",
+        ease: "circ.out",
       }, "<")
       .fromTo(dummy, {
         flex: 0,
@@ -149,6 +154,8 @@
 
 {#if $store.loadingAnimationIsDone}
     <section
+            class="about-me"
+
             bind:this={scrollTriggerTrigger}
     >
         <Hoverable>
@@ -157,11 +164,18 @@
 
                     bind:this={titleContainer}
                     on:click={() => scrollTo(scrollTriggerTrigger)}
+
+                    in:fade
+                    out:fade
             >
-                <h1 class="section-title">WHOAMI</h1>
+                <h1 class="section-title">ABOUT</h1>
                 <div class="dummy" bind:this={dummy}></div>
             </div>
         </Hoverable>
+
+        <!--        <p>-->
+        <!--            I'm Tom Planche, a 21 years old french developer.<br/>-->
+        <!--        </p>-->
     </section>
 
     <SongPlaying/>
@@ -201,9 +215,11 @@
         font-weight: 900;
         text-align: center;
 
-        font-family: "PP Mondwest", serif;
+        font-family: "PP NeueBit", serif;
 
         display: inline-flex;
+
+        text-transform: uppercase;
 
         &:before {
           content: ">_";
@@ -311,7 +327,20 @@
           }
         }
       }
+    }
 
+    &.about-me {
+      p {
+        font-size: 2rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+        padding: 0 5rem;
+
+        @media (max-width: 860px) {
+          padding: 0 2rem;
+        }
+      }
     }
   }
 </style>

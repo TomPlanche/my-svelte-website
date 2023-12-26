@@ -8,6 +8,7 @@
   import {style_vars} from "$lib/globals";
   import {store} from "$lib/appStore";
   import type {T_RecentTracksTrackAll} from "$lib/LastFM_handler";
+  import Hoverable from "$lib/components/Hoverable.svelte";
 
   // Variables
   // Props
@@ -54,10 +55,10 @@
 
   // Other
   let isAnimating = false;
-  let fetchInterval: number;
+  let fetchInterval: NodeJS.Timeout;
 
   // Functions
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
     return new Promise((resolve) => {
       if (isAnimating) return;
 
@@ -80,9 +81,9 @@
           })
       } else {
         gsapTimeline
-          .set(infos, {
+          .to(infos, {
             opacity: 0,
-            duration: 0,
+            duration: .5,
           })
           .to(infos, {
             duration: 1,
@@ -91,7 +92,8 @@
             onComplete: () => {
               size = "small";
             }
-          })
+            // 500ms delay to let the animation finish
+          }, '<.35')
           .to(container, {
             padding: '4px',
             gap: 0,
@@ -173,6 +175,7 @@
   // Mount
   onMount(() => {
     fetchSong();
+
     fetchInterval = setInterval(() => {
       fetchSong();
     }, 5000);
@@ -180,35 +183,55 @@
 </script>
 
 {#if (song)}
-    <div
-            class="song_container"
-            style={finalStyle}
-
-            aria-disabled="true"
-
-            bind:this={container}
-            on:click={handleClick}
-
-            in:scale={{ duration: 200 }}
-            out:scale={{ duration: 200 }}
+    <Hoverable
+            onEnterOptions={{
+             opacity: .25,
+           }}
     >
-        <img
-                src={song.image[song.image.length - 1]["#text"]}
-                alt="Song cover"
-        />
+        <div
+                class="song_container"
+                style={finalStyle}
 
-        {#if (size === "large")}
-            <div
-                    class="song_container__infos"
-                    bind:this={infos}
-                    in:fade={{ duration: 200, delay: 1500 }}
-            >
-                <p>{song.name}</p>
-                <p>{song.artist["#text"]}</p>
+                aria-disabled="true"
+
+                bind:this={container}
+                on:click={handleClick}
+
+                in:scale={{ duration: 200 }}
+                out:scale={{ duration: 200 }}
+
+                aria-hidden="true"
+        >
+
+            <div class="img-container">
+                <img
+                        src={song.image[song.image.length - 1]["#text"]}
+                        alt="Song cover"
+                />
+
+                {#if (size === "small")}
+                    <div class="overlay">
+                        <i class="gg-loadbar-sound"></i>
+                    </div>
+                {/if}
             </div>
-        {/if}
 
-    </div>
+
+            {#if (size === "large")}
+                <div
+                        class="song_container__infos"
+                        bind:this={infos}
+
+                        in:fade={{ duration: 200, delay: 1500 }}
+                        out:fade={{ duration: 200 }}
+                >
+                    <p>{song.name}</p>
+                    <p>{song.artist["#text"]}</p>
+                </div>
+            {/if}
+
+        </div>
+    </Hoverable>
 {/if}
 
 <style lang="scss">
@@ -225,18 +248,116 @@
     border-radius: 8px;
     padding: 4px;
 
-    outline: 1px solid $header-bg-dark;
+    outline: 1px solid $outline-dark;
+
+    :global(body.light) & {
+      outline: 1px solid $outline-light;
+    }
 
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 
-    img {
+    z-index: 900;
+
+    .img-container {
       height: 100%;
-      width: auto;
+      width: max-content;
       border-radius: 4px;
+
+      position: relative;
+
+      img {
+        height: 100%;
+        width: auto;
+        border-radius: 4px;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        opacity: 0;
+
+        border-radius: 4px;
+
+        transition: opacity 200ms ease;
+
+        z-index: 1000;
+
+        &:hover {
+          opacity: 1;
+
+          // Blurry background
+          background-color: #eeeeee25;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px); // Compatible with Safari
+        }
+
+
+        @keyframes gg-bar {
+          10% {
+            box-shadow: inset 0 -4px 0
+          }
+          30% {
+            box-shadow: inset 0 -10px 0
+          }
+          60% {
+            box-shadow: inset 0 -6px 0
+          }
+          80% {
+            box-shadow: inset 0 -8px 0
+          }
+          to {
+            box-shadow: inset 0 -2px 0
+          }
+        }
+
+        .gg-loadbar-sound,
+        .gg-loadbar-sound::after,
+        .gg-loadbar-sound::before {
+          display: block;
+          box-sizing: border-box;
+          width: 2px;
+          height: 12px;
+          box-shadow: inset 0 -12px 0;
+          animation: gg-bar 1.3s ease infinite alternate
+        }
+
+        .gg-loadbar-sound {
+          position: relative;
+          transform: scale(2)
+        }
+
+        .gg-loadbar-sound::after,
+        .gg-loadbar-sound::before {
+          content: "";
+          position: absolute;
+          bottom: 0
+        }
+
+        .gg-loadbar-sound::before {
+          left: -4px;
+          animation-delay: -2.4s
+        }
+
+        .gg-loadbar-sound::after {
+          right: -4px;
+          animation-delay: -3.7s
+        }
+      }
+
     }
+
 
     &__infos {
       width: max-content;

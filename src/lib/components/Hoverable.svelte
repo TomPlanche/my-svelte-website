@@ -40,17 +40,49 @@
 
 
   // Props
+  /**
+   * Options for the cursor when the user enters the element
+   *
+   * @type {T_CursorOptions}
+   */
   export let onEnterOptions: T_CursorOptions = {
     isHover: true,
     scale: 2,
   };
+
+  /**
+   * Options for the cursor when the user leaves the element
+   *
+   * @type {T_CursorOptions}
+   */
   export let onLeaveOptions: T_CursorOptions = {
     isHover: false,
     scale: 1,
   };
+
+  /**
+   * Whether to show the debug outline
+   *
+   * @type {boolean}
+   */
   export let debug: boolean = false;
+
+  /**
+   * Function to call when the user clicks on the element
+   *
+   * @type {function}
+   */
+  export let onClick: () => void = () => {
+  };
+
+  /**
+   * Style to apply to the element
+   *
+   * @type {string}
+   */
   export let style: string = "";
 
+  // Watchers
   $: style = debug ? "outline: 2px dotted red;" : "";
 
 </script>
@@ -59,6 +91,8 @@
         aria-hidden="true"
         on:mouseenter={() => defaultOnEnter(onEnterOptions)}
         on:mouseleave={() => defaultOnLeave(onLeaveOptions)}
+
+        on:click={onClick}
 
         style={style}
 >

@@ -47,7 +47,7 @@
 
     cursor: none;
 
-    background-color: $green-white;
+    background-color: $app-bg-light;
     color: $green-light;
     transition: background-color 0.3s ease-in-out;
 

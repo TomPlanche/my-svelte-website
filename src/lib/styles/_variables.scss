@@ -25,7 +25,7 @@ $gh-border: #30363D;
 $gh-border-dark: #21262D;
 
 $app-bg-dark: #080a13;
-$app-bg-light: #DFDDD8;
+$app-bg-light: #e5e9ea;
 
 
 $green-dark: #092C19;
@@ -35,8 +35,6 @@ $green-medium: #38634C;
 $green-light: #8B9C8F;
 $green-light-dimmed: #8B9C8F75;
 
-$green-white: #DFDDD8;
-
 $black: #02040a;
 $black-dimed: #02040a75;
 $blue: #679fc5;
@@ -44,6 +42,8 @@ $blue: #679fc5;
 $header-bg-dark: #eeeeee25;
 $header-bg-light: #00000025;
 
+$outline-dark: $header-bg-dark;
+$outline-light: $green-light;
 
 $white: #e8e4d9;
 $white-dimmed: #e8e4d975;
@@ -358,11 +358,14 @@ $footer-height: 5rem;
   font-style: normal;
 }
 
-/* TEST ABC WHYTE */
+/* Graphik */
 @font-face {
-  font-family: 'ABC Whyte';
-  src: url('$lib/fonts/ABC Whyte/ABC Whyte Variable/ABCWhyteVariable-Trial.woff2') format('woff2');
+  font-family: 'Graphik';
+  src: url('$lib/fonts/Graphik-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
+
 
 /**
  * End of file src/SCSS/_variables.scss
