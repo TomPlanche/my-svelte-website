@@ -6,20 +6,20 @@
 
 // Type(s)
 export type T_Cursor = {
-  isHover: boolean;
-  scale: number;
-  opacity: number;
-  svg: string;
-  innerHTML: string;
-}
+	isHover: boolean;
+	scale: number;
+	opacity: number;
+	svg: string;
+	innerHTML: string;
+	backgroundColor: string;
+	blur: number;
+};
 
 export type T_CursorOptions = {
-  [key in keyof T_Cursor]?: T_Cursor[key];
-}
+	[key in keyof T_Cursor]?: T_Cursor[key];
+};
 
-export type T_OnEnter = (
-  cursorOptions?: T_CursorOptions
-) => void;
+export type T_OnEnter = (cursorOptions?: T_CursorOptions) => void;
 
 export type T_OnLeave = T_OnEnter;
 /**

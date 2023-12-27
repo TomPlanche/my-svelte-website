@@ -14,7 +14,6 @@
   import MagnetikContainer from "$lib/components/magnetik/MagnetikContainer.svelte";
   import SongPlaying from "$lib/components/SongPlaying.svelte";
   import Hoverable from "$lib/components/Hoverable.svelte";
-  import Marquee from "$lib/components/Marquee.svelte";
   import {style_vars} from "$lib/globals";
 
   // Variables
@@ -40,6 +39,9 @@
         // when the bottom of the trigger hits the top of the viewport
         end: "50% 50%",
         scrub: true,
+      },
+      defaults: {
+        ease: "sine.inOut"
       }
     });
 
@@ -54,25 +56,24 @@
         transform: `translateY(calc(-100% - ${padding})`,
         fontSize: "5rem",
       }, {
-        fontSize: "3rem",
+        fontSize: "8rem",
         transform: "translateY(0)",
-        ease: "circ.out",
       }, "<")
       .fromTo(dummy, {
         flex: 0,
       }, {
         flex: 1,
-        ease: "circ.out",
       }, "<")
   }
 
   // Methods
   const scrollTo = (element: HTMLElement) => {
     const top = element.getBoundingClientRect().top + window.scrollY;
+
     gsap.to(window, {
       duration: 1.5,
       scrollTo: top,
-      ease: "circ.out"
+      ease: "sine.inOut"
     })
   }
 
@@ -173,9 +174,36 @@
             </div>
         </Hoverable>
 
-        <!--        <p>-->
-        <!--            I'm Tom Planche, a 21 years old french developer.<br/>-->
-        <!--        </p>-->
+        <p>
+            I'm Tom Planche, a 21 years old 🇫🇷 developer.<br/>
+            I first built this website using
+            <span class="react">
+                <Hoverable>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-11 -10.13 22 20.27">
+                        <circle r="2" fill="currentColor"/>
+                        <g stroke="currentColor">
+                            <ellipse rx="10" ry="4.5"/>
+                            <ellipse rx="10" ry="4.5" transform="rotate(60)"/>
+                            <ellipse rx="10" ry="4.5" transform="rotate(120)"/>
+                        </g>
+                    </svg>
+                    <a href="https://react.dev/">React</a>
+                </Hoverable>
+            </span> but in order to learn, I rebuilt (and improved it) in
+            <span class="svelte">
+                <Hoverable>
+                    <img src="/logos/svelte-logo.svg" alt="Svelte Logo">
+                    <a href="https://svelte.dev/">Svelte</a>
+                </Hoverable>
+            </span>
+            , both with
+            <span class="typescript">
+                <Hoverable>
+                    <img src="/logos/ts-logo-512.png" alt="TypeScript Logo">
+                    <a href="https://www.typescriptlang.org/">TypeScript</a>
+                </Hoverable>
+            </span>.
+        </p>
     </section>
 
     <SongPlaying/>
@@ -331,14 +359,91 @@
 
     &.about-me {
       p {
-        font-size: 2rem;
+        font-size: 3rem;
         font-weight: 400;
-        line-height: 1.5;
-        text-align: center;
-        padding: 0 5rem;
+        line-height: 1.15;
+        text-align: left;
+        //font-family: "Radikal", serif;
+        //font-family: "Fraktion Mono", serif;
+        font-family: "Charlevoix", serif;
+
+        padding: 5rem 0;
 
         @media (max-width: 860px) {
-          padding: 0 2rem;
+          padding: 2rem 2rem;
+        }
+
+        span {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: max-content;
+
+          position: relative;
+          isolation: isolate;
+
+          padding: .15rem;
+
+          img, svg {
+            height: 2.5rem;
+            width: auto;
+
+            margin-right: .5rem;
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+
+            height: 20%;
+            width: 100%;
+
+            border-radius: 4px;
+
+            z-index: -1;
+
+            transition: height .2s ease-in-out, background-color .2s ease-in-out, bottom .1s ease-in-out;
+          }
+
+          @mixin backgrounds($bg-no-hover, $bg-hover) {
+            &::before {
+              background-color: $bg-no-hover;
+            }
+
+            &:hover {
+              &::before {
+                bottom: 0;
+                height: 100%;
+                background-color: $bg-hover;
+              }
+            }
+          }
+
+          &.svelte {
+            @include backgrounds(hsl(12, 94%, 62%), #ff3e00);
+          }
+
+          &.typescript {
+            @include backgrounds(hsl(204, 86%, 53%), #4476c0);
+          }
+
+          &.react {
+            @include backgrounds(hsl(195, 86%, 40%), #087ea4);
+
+            svg {
+              color: #087ea4;
+              transition: color .2s ease-in-out;
+            }
+
+            &:hover {
+              svg {
+                color: white;
+              }
+            }
+          }
         }
       }
     }

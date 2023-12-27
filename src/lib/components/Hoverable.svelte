@@ -2,6 +2,7 @@
   // Imports
   import type {T_CursorOptions, T_OnEnter, T_OnLeave} from "../types";
   import {store} from "$lib/appStore";
+  import CSSProperties = gsap.CSSProperties;
 
   // Variables
   const defaultEnterOptions: T_CursorOptions = {
@@ -21,8 +22,6 @@
   const defaultOnEnter: T_OnEnter = (
     cursorOptions?: T_CursorOptions
   ) => {
-    console.log(`defaultOnEnter with cursorOptions: ${JSON.stringify(cursorOptions)}`);
-
     $store.cursor.setCursorParams({
       ...defaultEnterOptions,
       ...cursorOptions,
@@ -78,12 +77,21 @@
   /**
    * Style to apply to the element
    *
+   * @type {CSSRule}
+   */
+  export let style: CSSProperties = {
+    display: "contents"
+  };
+
+  /**
+   * Passed class to the element.
+   *
    * @type {string}
    */
-  export let style: string = "";
+  export let passedClass: string = '';
 
   // Watchers
-  $: style = debug ? "outline: 2px dotted red;" : "";
+  $: style = debug ? {...style, outline: "2px dotted red;"} : style;
 
 </script>
 
@@ -94,7 +102,9 @@
 
         on:click={onClick}
 
-        style={style}
+        class={passedClass}
+
+        style:display="contents"
 >
     <slot>
         <span style="display: flex; flex-direction: row; align-content: center; align-items: center">You need to add some content to your `<pre>Hoverable</pre>` component</span>

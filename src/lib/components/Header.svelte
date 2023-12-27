@@ -148,7 +148,7 @@
             svg: "https://github.githubassets.com/images/mona-loading-dark.gif",
           }}
       >
-          <img src="/imgs/github-mark-white.svg" alt="Github logo">
+          <img src="/logos/github-mark-white.svg" alt="Github logo">
       </Hoverable>
       <span>{ time }</span>
       <MagnetikContainer

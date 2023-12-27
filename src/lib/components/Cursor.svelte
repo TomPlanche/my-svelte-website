@@ -6,20 +6,20 @@
 	// Variables
 	const cursor_base = {size: 15};
 
+	// Springs
 	const opacity = spring(0);
 	const coords = spring({
 		x: 0,
 		y: 0,
 	}, {stiffness: 0.3, damping: 0.8});
     const size = spring(cursor_base.size);
+	const blur = spring(0);
 
+	let background = "#eeeeee90";
 	let hasMoved = false as boolean;
 
 	let innerSvg: string;
-
-
 	let innerHtml: HTMLElement;
-
 	let innerHtmlSize = {width: 0, height: 0};
 
 	// Functions
@@ -32,8 +32,11 @@
 			}
 
 			opacity.set(params.opacity ?? 0.5);
-		} else {
+			blur.set(params.blur ?? 0);
+			background = params.background ?? "#eeeeee90";
 
+
+		} else {
 			if (params.svg === false || params.svg === undefined) {
 				innerSvg = undefined;
 				opacity.set(params.opacity ?? 1);
@@ -88,7 +91,11 @@
 		cx={$coords.x}
 		cy={$coords.y}
 		r={$size}
-		style="opacity: {$opacity};"
+		style="
+			opacity: {$opacity};
+			filter: blur({$blur}px);
+			fill: {background};
+		"
 	/>
 </svg>
 
@@ -132,9 +139,6 @@
 
 		z-index: 99999;
 
-		circle {
-			fill: #eeeeee90;
-		}
 	}
 
 	img {
