@@ -24,6 +24,8 @@
 
 	// Functions
 	export const setCursorParams = (params: T_CursorOptions) => {
+		console.log(`[Cursor] Setting params`, params);
+
 		if (params.isHover) {
 			// params.svg can be undefined, a svg string or a boolean
 			if (params.svg) {
@@ -33,7 +35,7 @@
 
 			opacity.set(params.opacity ?? 0.5);
 			blur.set(params.blur ?? 0);
-			background = params.background ?? "#eeeeee90";
+			background = params.backgroundColor ?? "#eeeeee90";
 
 
 		} else {
@@ -43,6 +45,9 @@
 			} else {
 				opacity.set(params.opacity ?? 1);
 			}
+
+			blur.set(params.blur ?? 0);
+			background = params.backgroundColor ?? "#eeeeee90";
 		}
 
 		size.set(params.scale ? cursor_base.size * params.scale : cursor_base.size);
