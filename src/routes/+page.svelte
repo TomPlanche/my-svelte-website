@@ -15,6 +15,7 @@
   import SongPlaying from "$lib/components/SongPlaying.svelte";
   import Hoverable from "$lib/components/Hoverable.svelte";
   import {style_vars} from "$lib/globals";
+  import HoverableLink from "$lib/components/HoverableLink.svelte";
 
   // Variables
   let padding = style_vars.main_padding;
@@ -175,83 +176,113 @@
         </Hoverable>
 
         <p>
-            I'm Tom Planche, a 21 years old 🇫🇷 developer.
-            Currently studying at
-            <Hoverable
-                    onEnterOptions={{
-                      backgroundColor: "hsla(204,45%,59%,0.56)",
-                    }}
-            >Bayonne
-            </Hoverable>
-            <span class="span-bg"></span>
+            I'm Tom Planche, a 🇫🇷 developer 👨🏼‍💻.
+            Currently studying in <span class="bayonne">Bayonne <span>🏄‍♂️</span></span>.
             <br/>
             <br/>
-            I first built this website using
-            <span class="react">
-                <Hoverable>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-11 -10.13 22 20.27">
-                        <circle r="2" fill="currentColor"/>
-                        <g stroke="currentColor">
-                            <ellipse rx="10" ry="4.5"/>
-                            <ellipse rx="10" ry="4.5" transform="rotate(60)"/>
-                            <ellipse rx="10" ry="4.5" transform="rotate(120)"/>
-                        </g>
-                    </svg>
-                    <a href="https://react.dev/">React</a>
-                </Hoverable>
-            </span> but in order to learn, I rebuilt (and improved it) in
-            <span class="svelte">
-                <Hoverable>
-                    <img src="/logos/svelte-logo.svg" alt="Svelte Logo">
-                    <a href="https://svelte.dev/">Svelte</a>
-                </Hoverable>
-            </span>
+            This website was built using
+            <HoverableLink
+                    title="React"
+                    link="https://reactjs.org/"
+                    src="/logos/react-logo.svg"
+
+                    class="react"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-11 -10.13 22 20.27">
+                    <circle r="2" fill="currentColor"/>
+                    <g stroke="currentColor">
+                        <ellipse rx="10" ry="4.5"/>
+                        <ellipse rx="10" ry="4.5" transform="rotate(60)"/>
+                        <ellipse rx="10" ry="4.5" transform="rotate(120)"/>
+                    </g>
+                </svg>
+            </HoverableLink>
+            but in order to learn, I rebuilt (and improved it) in
+            <HoverableLink
+                    title="Svelte"
+                    link="https://svelte.dev/"
+                    src="/logos/svelte-logo.svg"
+                    alt="Svelte Logo"
+
+                    class="svelte"
+            />
             , both with
-            <span class="typescript">
-                <Hoverable>
-                    <img src="/logos/ts-logo-512.png" alt="TypeScript Logo">
-                    <a href="https://www.typescriptlang.org/">TypeScript</a>
-                </Hoverable>
-            </span>.
+            <HoverableLink
+                    title="TypeScript"
+                    link="https://www.typescriptlang.org/"
+                    src="/logos/ts-logo-512.png"
+                    alt="TypeScript Logo"
+
+                    class="typescript"
+            />
+            .
             <br>
             <br>
-            I also used PHP frameworks such as
-            <span class="laravel">
-                <Hoverable>
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                         viewBox="0 0 444 453" style="enable-background:new 0 0 444 453;" xml:space="preserve">
-                        <path d="M357.38,149.42c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39
-                            c-0.13-0.17-0.24-0.36-0.39-0.51c-0.13-0.13-0.29-0.22-0.43-0.33c-0.16-0.13-0.3-0.27-0.48-0.37c0,0,0,0,0,0c0,0,0,0,0,0
-                            l-52.45-30.2c-1.35-0.78-3.01-0.78-4.36,0l-52.45,30.2c0,0,0,0,0,0c0,0,0,0,0,0c-0.18,0.1-0.32,0.25-0.48,0.37
-                            c-0.14,0.11-0.3,0.2-0.43,0.33c-0.15,0.15-0.26,0.34-0.39,0.51c-0.1,0.13-0.22,0.25-0.3,0.39c-0.12,0.21-0.2,0.45-0.28,0.68
-                            c-0.05,0.12-0.12,0.24-0.15,0.37c-0.1,0.37-0.15,0.75-0.15,1.14v57.36l-43.71,25.17V120.87c0-0.39-0.05-0.77-0.15-1.14
-                            c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39c-0.13-0.17-0.24-0.36-0.39-0.51
-                            c-0.13-0.13-0.29-0.22-0.43-0.33c-0.16-0.13-0.3-0.27-0.48-0.37c0,0,0,0,0,0c0,0,0,0,0,0l-52.45-30.2c-1.35-0.78-3.01-0.78-4.36,0
-                            l-52.45,30.2c0,0,0,0,0,0c0,0,0,0,0,0c-0.18,0.1-0.32,0.25-0.48,0.37c-0.14,0.11-0.3,0.2-0.43,0.33c-0.15,0.15-0.26,0.34-0.39,0.51
-                            c-0.1,0.13-0.22,0.25-0.3,0.39c-0.12,0.21-0.2,0.45-0.28,0.68c-0.05,0.12-0.12,0.24-0.15,0.37c-0.1,0.37-0.15,0.75-0.15,1.14v179.66
-                            c0,1.56,0.84,3.01,2.19,3.79l104.91,60.4c0.23,0.13,0.48,0.21,0.72,0.3c0.11,0.04,0.22,0.11,0.34,0.14c0.37,0.1,0.74,0.15,1.12,0.15
-                            s0.75-0.05,1.12-0.15c0.1-0.03,0.19-0.09,0.29-0.12c0.26-0.09,0.52-0.18,0.76-0.31l104.91-60.4c1.36-0.78,2.19-2.22,2.19-3.79
-                            v-57.36l50.26-28.94c1.36-0.78,2.19-2.22,2.19-3.79v-59.89C357.53,150.17,357.47,149.79,357.38,149.42z M195.78,295.5l-43.63-24.69
-                            l45.82-26.38c0,0,0,0,0,0l50.27-28.94l43.67,25.14l-32.04,18.29L195.78,295.5z M296.33,183.29v49.8l-18.36-10.57l-25.36-14.6v-49.8
-                            l18.36,10.57L296.33,183.29z M300.7,125.4l43.69,25.16l-43.69,25.16l-43.69-25.16L300.7,125.4z M166.07,252.72l-18.36,10.57V153.6
-                            l25.36-14.6l18.36-10.57v109.68L166.07,252.72z M143.34,95.72l43.69,25.16l-43.69,25.16l-43.69-25.16L143.34,95.72z M95.25,128.43
-                            L113.61,139l25.36,14.6v117.24c0,0,0,0.01,0,0.01s0,0.01,0,0.01c0,0.17,0.05,0.33,0.07,0.49c0.03,0.21,0.03,0.43,0.09,0.64
-                            c0,0,0,0.01,0,0.01c0.05,0.17,0.14,0.33,0.21,0.49c0.08,0.18,0.13,0.38,0.23,0.55c0,0,0,0.01,0.01,0.01
-                            c0.09,0.15,0.22,0.28,0.33,0.42c0.12,0.16,0.22,0.32,0.36,0.46c0,0,0.01,0.01,0.01,0.01c0.12,0.12,0.28,0.21,0.42,0.32
-                            c0.16,0.12,0.3,0.26,0.47,0.36c0.01,0,0.01,0,0.02,0.01c0.01,0,0.01,0.01,0.02,0.01l50.24,28.43v50.29L95.25,298V128.43z
-                             M296.33,298l-96.17,55.37v-50.3l71.22-40.66l24.95-14.24V298z M348.78,207.92l-43.71,25.17v-49.8l25.36-14.6l18.36-10.57V207.92z"
-                              fill="currentColor"
-                        />
-                    </svg>
-                    <a href="https://laravel.com/">Laravel</a>
-                </Hoverable>
-            </span> at school and
-            <span class="symfony">
-                <Hoverable>
-                    <img src="/logos/symfony_white.png" alt="Symfony Logo">
-                    <a href="https://symfony.com/">Symfony</a>
-                </Hoverable>
-            </span> at my internship.
+            I also worked with PHP frameworks such as
+            <HoverableLink
+                    title="Laravel"
+                    link="https://laravel.com/"
+                    alt="Laravel Logo"
+
+                    class="laravel"
+            >
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                     viewBox="0 0 444 453" style="enable-background:new 0 0 444 453;" xml:space="preserve">
+                    <path d="M357.38,149.42c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39
+                        c-0.13-0.17-0.24-0.36-0.39-0.51c-0.13-0.13-0.29-0.22-0.43-0.33c-0.16-0.13-0.3-0.27-0.48-0.37c0,0,0,0,0,0c0,0,0,0,0,0
+                        l-52.45-30.2c-1.35-0.78-3.01-0.78-4.36,0l-52.45,30.2c0,0,0,0,0,0c0,0,0,0,0,0c-0.18,0.1-0.32,0.25-0.48,0.37
+                        c-0.14,0.11-0.3,0.2-0.43,0.33c-0.15,0.15-0.26,0.34-0.39,0.51c-0.1,0.13-0.22,0.25-0.3,0.39c-0.12,0.21-0.2,0.45-0.28,0.68
+                        c-0.05,0.12-0.12,0.24-0.15,0.37c-0.1,0.37-0.15,0.75-0.15,1.14v57.36l-43.71,25.17V120.87c0-0.39-0.05-0.77-0.15-1.14
+                        c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39c-0.13-0.17-0.24-0.36-0.39-0.51
+                        c-0.13-0.13-0.29-0.22-0.43-0.33c-0.16-0.13-0.3-0.27-0.48-0.37c0,0,0,0,0,0c0,0,0,0,0,0l-52.45-30.2c-1.35-0.78-3.01-0.78-4.36,0
+                        l-52.45,30.2c0,0,0,0,0,0c0,0,0,0,0,0c-0.18,0.1-0.32,0.25-0.48,0.37c-0.14,0.11-0.3,0.2-0.43,0.33c-0.15,0.15-0.26,0.34-0.39,0.51
+                        c-0.1,0.13-0.22,0.25-0.3,0.39c-0.12,0.21-0.2,0.45-0.28,0.68c-0.05,0.12-0.12,0.24-0.15,0.37c-0.1,0.37-0.15,0.75-0.15,1.14v179.66
+                        c0,1.56,0.84,3.01,2.19,3.79l104.91,60.4c0.23,0.13,0.48,0.21,0.72,0.3c0.11,0.04,0.22,0.11,0.34,0.14c0.37,0.1,0.74,0.15,1.12,0.15
+                        s0.75-0.05,1.12-0.15c0.1-0.03,0.19-0.09,0.29-0.12c0.26-0.09,0.52-0.18,0.76-0.31l104.91-60.4c1.36-0.78,2.19-2.22,2.19-3.79
+                        v-57.36l50.26-28.94c1.36-0.78,2.19-2.22,2.19-3.79v-59.89C357.53,150.17,357.47,149.79,357.38,149.42z M195.78,295.5l-43.63-24.69
+                        l45.82-26.38c0,0,0,0,0,0l50.27-28.94l43.67,25.14l-32.04,18.29L195.78,295.5z M296.33,183.29v49.8l-18.36-10.57l-25.36-14.6v-49.8
+                        l18.36,10.57L296.33,183.29z M300.7,125.4l43.69,25.16l-43.69,25.16l-43.69-25.16L300.7,125.4z M166.07,252.72l-18.36,10.57V153.6
+                        l25.36-14.6l18.36-10.57v109.68L166.07,252.72z M143.34,95.72l43.69,25.16l-43.69,25.16l-43.69-25.16L143.34,95.72z M95.25,128.43
+                        L113.61,139l25.36,14.6v117.24c0,0,0,0.01,0,0.01s0,0.01,0,0.01c0,0.17,0.05,0.33,0.07,0.49c0.03,0.21,0.03,0.43,0.09,0.64
+                        c0,0,0,0.01,0,0.01c0.05,0.17,0.14,0.33,0.21,0.49c0.08,0.18,0.13,0.38,0.23,0.55c0,0,0,0.01,0.01,0.01
+                        c0.09,0.15,0.22,0.28,0.33,0.42c0.12,0.16,0.22,0.32,0.36,0.46c0,0,0.01,0.01,0.01,0.01c0.12,0.12,0.28,0.21,0.42,0.32
+                        c0.16,0.12,0.3,0.26,0.47,0.36c0.01,0,0.01,0,0.02,0.01c0.01,0,0.01,0.01,0.02,0.01l50.24,28.43v50.29L95.25,298V128.43z
+                         M296.33,298l-96.17,55.37v-50.3l71.22-40.66l24.95-14.24V298z M348.78,207.92l-43.71,25.17v-49.8l25.36-14.6l18.36-10.57V207.92z"
+                          fill="currentColor"
+                    />
+                </svg>
+            </HoverableLink>
+            at school and
+            <HoverableLink
+                    title="Symfony"
+                    link="https://symfony.com/"
+                    src="/logos/symfony_white.png"
+                    alt="Symfony Logo"
+
+                    class="symfony"
+            />
+            at my internship.
+            <br>
+            <br>
+            I also have some experience with
+            <HoverableLink
+                    title="Python"
+                    link="https://www.python.org/"
+                    src="/logos/python-logo.png"
+                    alt="Python Logo"
+
+                    class="python"
+            />
+            and
+            <HoverableLink
+                    title="Rust"
+                    link="https://www.rust-lang.org/"
+                    src="/logos/rust-logo-128x128.png"
+                    alt="Rust Logo"
+
+                    class="rust"
+            />
+            .
         </p>
     </section>
 
@@ -416,140 +447,44 @@
         //font-family: "Fraktion Mono", serif;
         font-family: "Charlevoix", serif;
 
-        padding: 5rem 2rem;
+
+        align-items: center;
+
+        padding: 4rem 2rem;
 
         @media (max-width: 860px) {
           padding: 2rem 2rem;
         }
 
-        // if '.bayonne' is hovered, .span-bg is displayed
-        .bayonne:hover {
-          ::backdrop {
-            background: red;
-          }
-        }
-
         span {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          width: max-content;
-
-          position: relative;
-          isolation: isolate;
-
-          padding: .15rem;
+          @include span();
 
           &.bayonne {
+            @include backgrounds(#007227, #BA1420);
             position: relative;
 
             span {
               position: absolute;
+              top: 50%;
+              right: -25%;
 
-              &:nth-child(1) {
-                top: 0;
-                left: 0;
-              }
+              transform: translateY(-50%);
+              opacity: 0;
 
-              &:nth-child(2) {
-                top: 0;
-                right: 0;
-              }
-
-              &:nth-child(3) {
-                bottom: 0;
-                left: 0;
-              }
-
-              &:nth-child(4) {
-                bottom: 0;
-                right: 0;
-              }
-
-              &.background {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-
-                height: 100%;
-                width: 100%;
-              }
-            }
-          }
-
-          img, svg {
-            height: 2.5rem;
-            width: auto;
-
-            margin-right: .5rem;
-          }
-
-          &::before {
-            content: "";
-            position: absolute;
-            bottom: 10%;
-            left: 0;
-
-            height: 20%;
-            width: 100%;
-
-            border-radius: 4px;
-
-            z-index: -1;
-
-            transition: height .2s ease-in-out, background-color .2s ease-in-out, bottom .1s ease-in-out;
-          }
-
-          @mixin backgrounds($bg-no-hover, $bg-hover) {
-            &::before {
-              background-color: $bg-no-hover;
+              transition: opacity .2s ease-in-out;
             }
 
             &:hover {
+              transition: width .2s ease-in-out;
+
+              span {
+                opacity: 1;
+              }
+
               &::before {
-                bottom: 0;
-                height: 100%;
-                background-color: $bg-hover;
+                width: 125%;
               }
             }
-          }
-
-          @mixin backgrounds-with-svg($svg-color, $svg-color-hover) {
-            svg {
-              color: $svg-color;
-              transition: color .2s ease-in-out;
-            }
-
-            &:hover {
-              svg {
-                color: $svg-color-hover;
-              }
-            }
-          }
-
-          &.svelte {
-            @include backgrounds(hsl(12, 94%, 62%), #ff3e00);
-          }
-
-          &.typescript {
-            @include backgrounds(hsl(204, 86%, 53%), #4476c0);
-          }
-
-          &.react {
-            @include backgrounds(hsl(195, 86%, 40%), #087ea4);
-            @include backgrounds-with-svg(#087ea4, white);
-          }
-
-          &.laravel {
-            @include backgrounds(hsl(0, 100%, 50%), #F32735);
-            @include backgrounds-with-svg(#f05340, white);
-          }
-
-          &.symfony {
-            @include backgrounds(#436de7, #1d4ed8);
           }
         }
       }

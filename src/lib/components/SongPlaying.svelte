@@ -185,7 +185,8 @@
 {#if (song)}
     <Hoverable
             onEnterOptions={{
-             opacity: .25,
+             opacity: .125,
+             innerText: '🎧'
            }}
     >
         <div
@@ -253,6 +254,11 @@
     :global(body.light) & {
       outline: 1px solid $outline-light;
     }
+
+    // Blurry background
+    background-color: #eeeeee25;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); // Compatible with Safari
 
     display: flex;
     flex-direction: row;

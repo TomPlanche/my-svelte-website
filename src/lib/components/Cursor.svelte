@@ -19,8 +19,7 @@
 	let hasMoved = false as boolean;
 
 	let innerSvg: string;
-	let innerHtml: HTMLElement;
-	let innerHtmlSize = {width: 0, height: 0};
+	let innerText: string;
 
 	// Functions
 	export const setCursorParams = (params: T_CursorOptions) => {
@@ -29,8 +28,11 @@
 		if (params.isHover) {
 			// params.svg can be undefined, a svg string or a boolean
 			if (params.svg) {
-				opacity.set(params.opacity ?? 0);
 				innerSvg = params.svg;
+			}
+
+			if (params.innerText) {
+				innerText = params.innerText;
 			}
 
 			opacity.set(params.opacity ?? 0.5);
@@ -44,6 +46,10 @@
 				opacity.set(params.opacity ?? 1);
 			} else {
 				opacity.set(params.opacity ?? 1);
+			}
+
+			if (params.innerText === false || params.innerText === undefined) {
+				innerText = undefined;
 			}
 
 			blur.set(params.blur ?? 0);
@@ -60,13 +66,6 @@
 		setTimeout(() => {
 			opacity.set(1);
 		}, 150);
-	}
-
-	$: if (innerHtml) {
-		innerHtmlSize = {
-			width: innerHtml.offsetWidth,
-			height: innerHtml.offsetHeight
-		};
 	}
 </script>
 
@@ -118,14 +117,20 @@
 {/if}
 
 <!-- If something is in the default slot, then we display it -->
-{#if ($$slots.default)}
+{#if $$slots.default || innerText}
 	<div
 		class="html-container"
-		style="transform: translate({$coords.x}px, {$coords.y}px); opacity: {$opacity};"
-
-		bind:this={innerHtml}
+		style="
+			height: {$size * 2}px;
+			width: {$size * 2}px;
+			transform: translate({$coords.x - $size}px, {$coords.y - $size}px) scale({$size / cursor_base.size});
+		"
 	>
-		<slot />
+		{#if $$slots.default}
+			<slot />
+		{:else}
+			{innerText}
+		{/if}
 	</div>
 {/if}
 
@@ -142,7 +147,7 @@
 		width: 100%;
 		height: 100%;
 
-		z-index: 99999;
+		z-index: 99998;
 
 	}
 
@@ -160,7 +165,12 @@
 		top: 0;
 		left: 0;
 
-		z-index: 99999;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+
+		z-index: 99998;
 
 		pointer-events: none;
 	}

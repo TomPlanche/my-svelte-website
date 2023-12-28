@@ -10,7 +10,7 @@ export type T_Cursor = {
 	scale: number;
 	opacity: number;
 	svg: string;
-	innerHTML: string;
+	innerText: string;
 	backgroundColor: string;
 	blur: number;
 };
