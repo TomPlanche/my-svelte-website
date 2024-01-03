@@ -19,6 +19,19 @@
   }
 }
 
+@mixin backgrounds-with-svg($svg-color, $svg-color-hover) {
+  svg {
+    color: $svg-color;
+    transition: color .2s ease-in-out;
+  }
+
+  &:hover {
+    svg {
+      color: $svg-color-hover;
+    }
+  }
+}
+
 @mixin span {
   display: inline-flex;
   align-items: center;
@@ -28,7 +41,7 @@
   position: relative;
   isolation: isolate;
 
-  padding: .15rem;
+  padding: .15rem .5rem;
 
   &::before {
     content: "";

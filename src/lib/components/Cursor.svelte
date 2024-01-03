@@ -23,8 +23,6 @@
 
 	// Functions
 	export const setCursorParams = (params: T_CursorOptions) => {
-		console.log(`[Cursor] Setting params`, params);
-
 		if (params.isHover) {
 			// params.svg can be undefined, a svg string or a boolean
 			if (params.svg) {

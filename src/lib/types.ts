@@ -3,6 +3,7 @@
  * @description types
  * @author Tom Planche
  */
+import type { T_Tag } from '$lib/appStore';
 
 // Type(s)
 export type T_Cursor = {
@@ -22,6 +23,22 @@ export type T_CursorOptions = {
 export type T_OnEnter = (cursorOptions?: T_CursorOptions) => void;
 
 export type T_OnLeave = T_OnEnter;
+
+export type T_Project = {
+	title: string;
+	category?: string;
+
+	tags?: T_Tag[];
+	tagsColors?: Record<T_Tag, string>;
+
+	link?: string;
+
+	img?: string;
+	imgAlt?: string;
+
+	paragraph?: string;
+};
+
 /**
  * End of file src/types.ts
  */

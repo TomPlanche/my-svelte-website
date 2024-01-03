@@ -1,234 +1,237 @@
 <script lang="ts">
-  // Imports
-  import {onMount} from "svelte";
-  import {fade} from 'svelte/transition';
+	// Imports
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
-  import {gsap} from "gsap/dist/gsap";
-  import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
-  import {ScrollToPlugin} from "gsap/dist/ScrollToPlugin";
+	import { gsap } from 'gsap/dist/gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+	import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.registerPlugin(ScrollToPlugin);
+	gsap.registerPlugin(ScrollTrigger);
+	gsap.registerPlugin(ScrollToPlugin);
 
-  import {store} from "$lib/appStore";
-  import MagnetikContainer from "$lib/components/magnetik/MagnetikContainer.svelte";
-  import SongPlaying from "$lib/components/SongPlaying.svelte";
-  import Hoverable from "$lib/components/Hoverable.svelte";
-  import {style_vars} from "$lib/globals";
-  import HoverableLink from "$lib/components/HoverableLink.svelte";
+	import { store } from '$lib/appStore';
+	import MagnetikContainer from '$lib/components/magnetik/MagnetikContainer.svelte';
+	import SongPlaying from '$lib/components/SongPlaying.svelte';
+	import Hoverable from '$lib/components/Hoverable.svelte';
+	import { style_vars } from '$lib/globals';
+	import HoverableLink from '$lib/components/HoverableLink.svelte';
+	import Menu from '$lib/components/Menu.svelte';
 
-  // Variables
-  let padding = style_vars.main_padding;
+	// Variables
+	const {main_padding, padding_top} = style_vars;
 
-  // references
-  let content: HTMLElement;
-  let image: HTMLElement;
 
-  let scrollTriggerTrigger: HTMLElement;
-  let titleContainer: HTMLElement;
-  let dummy: HTMLElement;
+	// references
+	let content: HTMLElement;
+	let image: HTMLElement;
 
-  let startAnimation;
+	let scrollTriggerTrigger: HTMLElement;
+	let titleContainer: HTMLElement;
+	let dummy: HTMLElement;
 
-  // Watchers
-  $: if (scrollTriggerTrigger) {
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: scrollTriggerTrigger,
-        // when the top of the trigger hits the middle of the viewport
-        start: "top 50%",
-        // when the bottom of the trigger hits the top of the viewport
-        end: "50% 50%",
-        scrub: true,
-      },
-      defaults: {
-        ease: "sine.inOut"
-      }
-    });
+	let startAnimation;
 
-    scrollTl
-      .fromTo(scrollTriggerTrigger, {
-        paddingTop: 0,
-      }, {
-        ease: "power4.out",
-        paddingTop: $store.paddingTopEnd,
-      })
-      .fromTo(titleContainer, {
-        transform: `translateY(calc(-100% - ${padding})`,
-        fontSize: "5rem",
-      }, {
-        fontSize: "8rem",
-        transform: "translateY(0)",
-      }, "<")
-      .fromTo(dummy, {
-        flex: 0,
-      }, {
-        flex: 1,
-      }, "<")
-  }
+	// Watchers
+	$: if (scrollTriggerTrigger) {
+		const scrollTl = gsap.timeline({
+			scrollTrigger: {
+				trigger: scrollTriggerTrigger,
+				// when the top of the trigger hits the middle of the viewport
+				start: 'top 50%',
+				// when the bottom of the trigger hits the top of the viewport
+				end: '50% 50%',
+				scrub: true
+			},
+			defaults: {
+				ease: 'sine.inOut'
+			}
+		});
 
-  // Methods
-  const scrollTo = (element: HTMLElement) => {
-    const top = element.getBoundingClientRect().top + window.scrollY;
+		scrollTl
+			.fromTo(
+				scrollTriggerTrigger,
+				{
+					paddingTop: 0
+				},
+				{
+					ease: 'power4.out',
+					paddingTop: $store.paddingTopEnd
+				}
+			)
+			.fromTo(
+				titleContainer,
+				{
+					transform: `translateY(calc(-100% - ${main_padding})`,
+					fontSize: '5rem'
+				},
+				{
+					fontSize: '8rem',
+					transform: 'translateY(0)'
+				},
+				'<'
+			)
+			.fromTo(
+				dummy,
+				{
+					flex: 0
+				},
+				{
+					flex: 1
+				},
+				'<'
+			);
+	}
 
-    gsap.to(window, {
-      duration: 1.5,
-      scrollTo: top,
-      ease: "sine.inOut"
-    })
-  }
+	// Methods
+	const scrollTo = (element: HTMLElement) => {
+		const top = element.getBoundingClientRect().top + window.scrollY;
 
-  // Lifecycle
-  onMount(() => {
-    $store.loadingAnimationIsDone = false;
+		gsap.to(window, {
+			duration: 1.5,
+			scrollTo: top,
+			ease: 'sine.inOut'
+		});
+	};
 
-    startAnimation = gsap.timeline({
-      defaults: {
-        duration: .75,
-      }
-    });
+	// Lifecycle
+	onMount(() => {
+		$store.loadingAnimationIsDone = false;
 
-    startAnimation
-      .set(content, {
-        display: "none",
-      })
-      .fromTo(image, {
-        opacity: 0,
-        scale: .25
-      }, {
-        opacity: 1,
-        scale: 1,
-        delay: .5,
-      })
-      .fromTo(content, {
-        width: 0,
-        display: "flex"
-      }, {
-        width: "50%",
-        duration: .5,
-        ease: "power4.out",
-      })
-      .fromTo(content, {
-        opacity: 0,
-      }, {
-        opacity: 1,
-        onComplete: () => {
-          $store.loadingAnimationIsDone = true;
-        },
-      })
-  })
+		startAnimation = gsap.timeline({
+			defaults: {
+				duration: 0.75
+			}
+		});
 
+		startAnimation
+			.set(content, {
+				display: 'none'
+			})
+			.fromTo(
+				image,
+				{
+					opacity: 0,
+					scale: 0.25
+				},
+				{
+					opacity: 1,
+					scale: 1,
+					delay: 0.5
+				}
+			)
+			.fromTo(
+				content,
+				{
+					width: 0,
+					display: 'flex'
+				},
+				{
+					width: '50%',
+					duration: 0.5,
+					ease: 'power4.out'
+				}
+			)
+			.fromTo(
+				content,
+				{
+					opacity: 0
+				},
+				{
+					opacity: 1,
+					onComplete: () => {
+						$store.loadingAnimationIsDone = true;
+					}
+				}
+			);
+	});
 </script>
 
-<section
-        class="intro"
->
-    <div
-            class="content"
-
-            bind:this={content}
-    >
-        <h1>Tom Planche</h1>
-        <h2>
-            Full Stack Developer<br/>
-            Programmer
-        </h2>
-    </div>
-    <div
-            class="image"
-
-            bind:this={image}
-    >
-        <MagnetikContainer
-                field_size="1.5"
-                field_force=".25"
-                block={!$store.loadingAnimationIsDone}
-        >
-            <div class="img-container">
-                <img
-                        src="/imgs/imageCV.png"
-                        alt="My Ugly Face"
-                />
-            </div>
-        </MagnetikContainer>
-    </div>
+<section class="intro" style="min-height: calc(100vh - {padding_top}); padding-bottom: {padding_top}">
+	<div bind:this={content} class="content">
+		<h1>Tom Planche</h1>
+		<h2>
+			Full Stack Developer<br />
+			Programmer
+		</h2>
+	</div>
+	<div bind:this={image} class="image">
+		<MagnetikContainer block={!$store.loadingAnimationIsDone} field_force=".25" field_size="1.5">
+			<div class="img-container">
+				<img alt="My Ugly Face" src="/imgs/imageCV.png" />
+			</div>
+		</MagnetikContainer>
+	</div>
 </section>
 
 {#if $store.loadingAnimationIsDone}
-    <section
-            class="about-me"
+	<section class="about-me" bind:this={scrollTriggerTrigger}>
+		<Hoverable>
+			<div
+				class="title-container"
+				bind:this={titleContainer}
+				on:click={() => scrollTo(scrollTriggerTrigger)}
+				in:fade
+				out:fade
+			>
+				<h1 class="section-title">ABOUT</h1>
+				<div class="dummy" bind:this={dummy}></div>
+			</div>
+		</Hoverable>
 
-            bind:this={scrollTriggerTrigger}
-    >
-        <Hoverable>
-            <div
-                    class="title-container"
-
-                    bind:this={titleContainer}
-                    on:click={() => scrollTo(scrollTriggerTrigger)}
-
-                    in:fade
-                    out:fade
-            >
-                <h1 class="section-title">ABOUT</h1>
-                <div class="dummy" bind:this={dummy}></div>
-            </div>
-        </Hoverable>
-
-        <p>
-            I'm Tom Planche, a 🇫🇷 developer 👨🏼‍💻.
-            Currently studying in <span class="bayonne">Bayonne <span>🏄‍♂️</span></span>.
-            <br/>
-            <br/>
-            This website was built using
-            <HoverableLink
-                    title="React"
-                    link="https://reactjs.org/"
-                    src="/logos/react-logo.svg"
-
-                    class="react"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-11 -10.13 22 20.27">
-                    <circle r="2" fill="currentColor"/>
-                    <g stroke="currentColor">
-                        <ellipse rx="10" ry="4.5"/>
-                        <ellipse rx="10" ry="4.5" transform="rotate(60)"/>
-                        <ellipse rx="10" ry="4.5" transform="rotate(120)"/>
-                    </g>
-                </svg>
-            </HoverableLink>
-            but in order to learn, I rebuilt (and improved it) in
-            <HoverableLink
-                    title="Svelte"
-                    link="https://svelte.dev/"
-                    src="/logos/svelte-logo.svg"
-                    alt="Svelte Logo"
-
-                    class="svelte"
-            />
-            , both with
-            <HoverableLink
-                    title="TypeScript"
-                    link="https://www.typescriptlang.org/"
-                    src="/logos/ts-logo-512.png"
-                    alt="TypeScript Logo"
-
-                    class="typescript"
-            />
-            .
-            <br>
-            <br>
-            I also worked with PHP frameworks such as
-            <HoverableLink
-                    title="Laravel"
-                    link="https://laravel.com/"
-                    alt="Laravel Logo"
-
-                    class="laravel"
-            >
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                     viewBox="0 0 444 453" style="enable-background:new 0 0 444 453;" xml:space="preserve">
-                    <path d="M357.38,149.42c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39
+		<p>
+			I'm Tom Planche, a 🇫🇷 developer 👨🏼‍💻. Currently studying in <span class="bayonne"
+				>Bayonne <span>🏄‍♂️</span></span
+			>.
+			<br />
+			<br />
+			This website was built using
+			<HoverableLink
+				title="React"
+				link="https://reactjs.org/"
+				src="/logos/react-logo.svg"
+				class="react"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-11 -10.13 22 20.27">
+					<circle r="2" fill="currentColor" />
+					<g stroke="currentColor">
+						<ellipse rx="10" ry="4.5" />
+						<ellipse rx="10" ry="4.5" transform="rotate(60)" />
+						<ellipse rx="10" ry="4.5" transform="rotate(120)" />
+					</g>
+				</svg>
+			</HoverableLink>
+			but in order to learn, I rebuilt (and improved it) in
+			<HoverableLink
+				title="Svelte"
+				link="https://svelte.dev/"
+				src="/logos/svelte-logo.svg"
+				alt="Svelte Logo"
+				class="svelte"
+			/><!-- prettier-ignore -->, both with
+      <HoverableLink
+				title="TypeScript"
+				link="https://www.typescriptlang.org/"
+				src="/logos/ts-logo-512.png"
+				alt="TypeScript Logo"
+				class="typescript"
+			/><!-- prettier-ignore -->.
+      <br />
+			<br />
+			I also worked with PHP frameworks such as
+			<HoverableLink title="Laravel" link="https://laravel.com/" alt="Laravel Logo" class="laravel">
+				<svg
+					version="1.1"
+					id="Layer_1"
+					xmlns="http://www.w3.org/2000/svg"
+					x="0px"
+					y="0px"
+					viewBox="0 0 444 453"
+					style="enable-background:new 0 0 444 453;"
+					xml:space="preserve"
+				>
+					<path
+						d="M357.38,149.42c-0.03-0.13-0.11-0.24-0.15-0.37c-0.09-0.23-0.16-0.47-0.28-0.68c-0.08-0.14-0.2-0.26-0.3-0.39
                         c-0.13-0.17-0.24-0.36-0.39-0.51c-0.13-0.13-0.29-0.22-0.43-0.33c-0.16-0.13-0.3-0.27-0.48-0.37c0,0,0,0,0,0c0,0,0,0,0,0
                         l-52.45-30.2c-1.35-0.78-3.01-0.78-4.36,0l-52.45,30.2c0,0,0,0,0,0c0,0,0,0,0,0c-0.18,0.1-0.32,0.25-0.48,0.37
                         c-0.14,0.11-0.3,0.2-0.43,0.33c-0.15,0.15-0.26,0.34-0.39,0.51c-0.1,0.13-0.22,0.25-0.3,0.39c-0.12,0.21-0.2,0.45-0.28,0.68
@@ -248,246 +251,255 @@
                         c0.09,0.15,0.22,0.28,0.33,0.42c0.12,0.16,0.22,0.32,0.36,0.46c0,0,0.01,0.01,0.01,0.01c0.12,0.12,0.28,0.21,0.42,0.32
                         c0.16,0.12,0.3,0.26,0.47,0.36c0.01,0,0.01,0,0.02,0.01c0.01,0,0.01,0.01,0.02,0.01l50.24,28.43v50.29L95.25,298V128.43z
                          M296.33,298l-96.17,55.37v-50.3l71.22-40.66l24.95-14.24V298z M348.78,207.92l-43.71,25.17v-49.8l25.36-14.6l18.36-10.57V207.92z"
-                          fill="currentColor"
-                    />
-                </svg>
-            </HoverableLink>
-            at school and
-            <HoverableLink
-                    title="Symfony"
-                    link="https://symfony.com/"
-                    src="/logos/symfony_white.png"
-                    alt="Symfony Logo"
+						fill="currentColor"
+					/>
+				</svg>
+			</HoverableLink>
+			at school and
+			<HoverableLink
+				title="Symfony"
+				link="https://symfony.com/"
+				src="/logos/symfony_white.png"
+				alt="Symfony Logo"
+				class="symfony"
+			/>
+			at my internship.
+			<br />
+			<br />
+			I also have some experience with
+			<HoverableLink
+				title="Python"
+				link="https://www.python.org/"
+				src="/logos/python-logo.png"
+				alt="Python Logo"
+				class="python"
+			/>
+			and
+			<HoverableLink
+				title="Rust"
+				link="https://www.rust-lang.org/"
+				src="/logos/rust-logo-128x128.png"
+				alt="Rust Logo"
+				class="rust"
+			/><!-- prettier-ignore -->.
 
-                    class="symfony"
-            />
-            at my internship.
-            <br>
-            <br>
-            I also have some experience with
-            <HoverableLink
-                    title="Python"
-                    link="https://www.python.org/"
-                    src="/logos/python-logo.png"
-                    alt="Python Logo"
 
-                    class="python"
-            />
-            and
-            <HoverableLink
-                    title="Rust"
-                    link="https://www.rust-lang.org/"
-                    src="/logos/rust-logo-128x128.png"
-                    alt="Rust Logo"
+		</p>
+	</section>
 
-                    class="rust"
-            />
-            .
-        </p>
-    </section>
+	<Menu />
 
-    <SongPlaying/>
+	<SongPlaying />
 {/if}
 
 <style lang="scss">
-  @import "../lib/styles/variables";
+	@import '../lib/styles/variables';
 
-  :global(body.light) {
-    .title-container,
-    .intro {
-      color: $green-dark
-    }
+	:global(body.light) {
+		.title-container,
+		.intro {
+			color: $green-dark;
+		}
 
-    .img-container {
-      img {
-        // make a filter to transform the blue from the image to green
-        filter: invert(20%);
-      }
-    }
+		.img-container {
+			img {
+				// make a filter to transform the blue from the image to green
+				filter: invert(20%);
+			}
+		}
+	}
 
-  }
+	section {
+		width: 100%;
 
-  section {
-    min-height: 100vh;
-    width: 100%;
+		.title-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			font-size: 4rem;
 
-    .title-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      font-size: 4rem;
+			.section-title {
+				font-weight: 900;
+				text-align: center;
 
+				font-family: 'PP NeueBit', serif;
 
-      .section-title {
-        font-weight: 900;
-        text-align: center;
+				display: inline-flex;
 
-        font-family: "PP NeueBit", serif;
+				text-transform: uppercase;
 
-        display: inline-flex;
+				&:before {
+					content: '>_';
+					margin-right: 1rem;
+				}
+			}
 
-        text-transform: uppercase;
+			.dummy {
+				width: 0;
+				transition: width 0.2s ease-in-out;
+			}
+		}
 
-        &:before {
-          content: ">_";
-          margin-right: 1rem;
-        }
-      }
+		&.intro {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
 
-      .dummy {
-        width: 0;
-        transition: width .2s ease-in-out;
-      }
-    }
+			@media (max-width: 860px) {
+				flex-direction: column-reverse;
 
-    &.intro {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+				.content {
+					padding: 0;
+				}
+			}
 
-      @media (max-width: 860px) {
-        flex-direction: column-reverse;
+			.content,
+			.image {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
 
-        .content {
-          padding: 0;
-        }
-      }
+				width: 50%;
+				height: 100%;
 
-      .content,
-      .image {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+				@media (max-width: 860px) {
+					width: 100%;
+					align-items: center;
 
-        width: 50%;
-        height: 100%;
+					&.image {
+						justify-content: flex-end;
+					}
 
-        @media (max-width: 860px) {
-          width: 100%;
-          align-items: center;
+					&.content {
+						justify-content: flex-start;
+						padding-top: 5vh;
+					}
+				}
+			}
 
-          &.image {
-            justify-content: flex-end;
-          }
+			.content {
+				padding-left: 5rem;
 
-          &.content {
-            justify-content: flex-start;
-            padding-top: 5vh;
-          }
-        }
-      }
+				@media (max-width: 860px) {
+					padding: 0;
+				}
 
-      .content {
-        padding-left: 5rem;
+				h1,
+				h2 {
+					text-align: left;
+					font-family: 'PP Mondwest', serif;
 
-        @media (max-width: 860px) {
-          padding: 0;
-        }
+					@media (max-width: 860px) {
+						text-align: center;
+					}
+				}
 
-        h1, h2 {
-          text-align: left;
-          font-family: "PP Mondwest", serif;
+				h1 {
+					font-size: 7vw;
+					font-weight: 900;
+				}
 
-          @media (max-width: 860px) {
-            text-align: center;
-          }
-        }
+				h2 {
+					font-size: 4vw;
+					font-weight: 400;
+				}
+			}
 
-        h1 {
-          font-size: 7vw;
-          font-weight: 900;
-        }
+			.image {
+				display: flex;
+				justify-content: center;
+				align-items: center;
 
-        h2 {
-          font-size: 4vw;
-          font-weight: 400;
+				.img-container {
+					height: 45vmin;
+					width: auto;
+					border-radius: 4rem;
 
-        }
+					overflow: hidden;
 
-      }
+					img {
+						height: 100%;
+						width: auto;
+						border-radius: 4rem;
 
-      .image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+						transition: transform 0.2s ease-in-out;
 
-        .img-container {
-          height: 45vmin;
-          width: auto;
-          border-radius: 4rem;
+						&:hover {
+							transform: scale(1.1);
+						}
+					}
+				}
+			}
+		}
 
-          overflow: hidden;
+		&.about-me {
+			p {
+				font-size: 2.5rem;
+				font-weight: 400;
+				line-height: 1.25;
+				text-align: left;
+				//font-family: "Radikal", serif;
+				//font-family: "Fraktion Mono", serif;
+				font-family: 'Charlevoix', serif;
 
-          img {
-            height: 100%;
-            width: auto;
-            border-radius: 4rem;
+				align-items: center;
 
-            transition: transform .2s ease-in-out;
+				padding: 4rem 0;
 
+				@media (max-width: 860px) {
+					padding: 2rem 2rem;
+				}
 
-            &:hover {
-              transform: scale(1.1);
-            }
-          }
-        }
-      }
-    }
+				span {
+					@include span();
 
-    &.about-me {
-      p {
-        font-size: 2.5rem;
-        font-weight: 400;
-        line-height: 1.25;
-        text-align: left;
-        //font-family: "Radikal", serif;
-        //font-family: "Fraktion Mono", serif;
-        font-family: "Charlevoix", serif;
+					&.bayonne {
+						@include backgrounds(#007227, #ba1420);
+						position: relative;
 
+						span {
+							position: absolute;
+							top: 50%;
+							right: -25%;
 
-        align-items: center;
+							transform: translateY(-50%);
+							opacity: 0;
 
-        padding: 4rem 2rem;
+							transition: opacity 0.2s ease-in-out;
+						}
 
-        @media (max-width: 860px) {
-          padding: 2rem 2rem;
-        }
+						&:hover {
+							transition: width 0.2s ease-in-out;
 
-        span {
-          @include span();
+							span {
+								opacity: 1;
+							}
 
-          &.bayonne {
-            @include backgrounds(#007227, #BA1420);
-            position: relative;
+							&::before {
+								width: 125%;
+							}
+						}
+					}
 
-            span {
-              position: absolute;
-              top: 50%;
-              right: -25%;
+					&.react {
+						@include backgrounds(hsl(195, 86%, 40%), #087ea4);
+						@include backgrounds-with-svg(#087ea4, white);
 
-              transform: translateY(-50%);
-              opacity: 0;
+						svg {
+							transition: transform 0.2s ease-in-out;
+						}
 
-              transition: opacity .2s ease-in-out;
-            }
-
-            &:hover {
-              transition: width .2s ease-in-out;
-
-              span {
-                opacity: 1;
-              }
-
-              &::before {
-                width: 125%;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+						&:hover {
+							svg {
+								transform: rotate(90deg);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 </style>

@@ -1,122 +1,95 @@
 <script lang="ts">
-  // Imports
-  import Hoverable from "$lib/components/Hoverable.svelte";
+	// Imports
+	import Hoverable from '$lib/components/Hoverable.svelte';
 
-  // Variables
-  // props
-  /**
-   * Title
-   *
-   * @type {string}
-   */
-  export let title = "";
+	// Variables
+	// props
+	/**
+	 * Title
+	 *
+	 * @type {string}
+	 */
+	export let title = '';
 
-  /**
-   * Link
-   *
-   * @type {string}
-   */
-  export let link = "";
+	/**
+	 * Link
+	 *
+	 * @type {string}
+	 */
+	export let link = '';
 
-  /**
-   * Image source
-   *
-   * @type {string}
-   */
-  export let src = "";
+	/**
+	 * Image source
+	 *
+	 * @type {string}
+	 */
+	export let src = '';
 
-  /**
-   * Image alt text
-   *
-   * @type {string}
-   */
-  export let alt = `${title} Logo`;
+	/**
+	 * Image alt text
+	 *
+	 * @type {string}
+	 */
+	export let alt = `${title} Logo`;
 
-  // Functions
+	// Functions
 </script>
 
-<span class="{$$restProps.class}">
-    {#if $$slots.default}
-        <slot/>
-    {:else}
-        <img {src} alt={alt}>
-    {/if}
-    <Hoverable>
-        <a href={link}>{title}</a>
-    </Hoverable>
+<span class={$$restProps.class}>
+	{#if $$slots.default}
+		<slot />
+	{:else}
+		<img {src} {alt} />
+	{/if}
+	<Hoverable>
+		<a href={link}>{title}</a>
+	</Hoverable>
 </span>
 
 <style lang="scss">
-  @import "../styles/variables";
+	@import '../styles/variables';
 
-  span {
-    @include span();
+	span {
+		@include span();
 
-    @mixin backgrounds($bg-no-hover, $bg-hover) {
-      &::before {
-        background-color: $bg-no-hover;
-      }
+		&.svelte {
+			@include backgrounds(hsl(12, 94%, 62%), #ff3e00);
+		}
 
-      &:hover {
-        &::before {
-          bottom: 0;
-          height: 100%;
-          background-color: $bg-hover;
-        }
-      }
-    }
+		&.typescript {
+			@include backgrounds(hsl(204, 86%, 53%), #4476c0);
+		}
 
-    @mixin backgrounds-with-svg($svg-color, $svg-color-hover) {
-      svg {
-        color: $svg-color;
-        transition: color .2s ease-in-out;
-      }
+		&.react {
+			@include backgrounds(hsl(195, 86%, 40%), #087ea4);
+			@include backgrounds-with-svg(#087ea4, white);
 
-      &:hover {
-        svg {
-          color: $svg-color-hover;
-        }
-      }
-    }
+			svg {
+				transition: transform 0.2s ease-in-out;
+			}
 
-    &.svelte {
-      @include backgrounds(hsl(12, 94%, 62%), #ff3e00);
-    }
+			&:hover {
+				svg {
+					transform: rotate(90deg);
+				}
+			}
+		}
 
-    &.typescript {
-      @include backgrounds(hsl(204, 86%, 53%), #4476c0);
-    }
+		&.laravel {
+			@include backgrounds(hsl(0, 100%, 50%), #f32735);
+			@include backgrounds-with-svg(#f05340, white);
+		}
 
-    &.react {
-      @include backgrounds(hsl(195, 86%, 40%), #087ea4);
-      @include backgrounds-with-svg(#087ea4, white);
+		&.symfony {
+			@include backgrounds(#436de7, #1d4ed8);
+		}
 
-      svg {
-        transition: transform .2s ease-in-out;
-      }
+		&.python {
+			@include backgrounds(#44709f, #263e59);
+		}
 
-      &:hover {
-        svg {
-          transform: rotate(90deg);
-        }
-      }
-    }
-
-    &.laravel {
-      @include backgrounds(hsl(0, 100%, 50%), #F32735);
-      @include backgrounds-with-svg(#f05340, white);
-    }
-
-    &.symfony {
-      @include backgrounds(#436de7, #1d4ed8);
-    }
-
-    &.python {
-      @include backgrounds(#44709f, #263e59);
-    }
-
-    &.rust {
-      @include backgrounds(#895432, #d14e24);
-    }
-  }
+		&.rust {
+			@include backgrounds(#895432, #d14e24);
+		}
+	}
 </style>

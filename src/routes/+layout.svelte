@@ -1,13 +1,12 @@
 <script lang="ts">
   // Imports
-  // import {gsap} from "gsap/dist/gsap";
-
   import Header from "$lib/components/Header.svelte";
   import Cursor from "$lib/components/Cursor.svelte";
   import {style_vars} from "$lib/globals";
   import "$lib/styles/main.scss";
   import {type SvelteComponent} from "svelte";
   import {store} from "$lib/appStore";
+  import Footer from "$lib/components/Footer.svelte";
 
   // Variables
   let headerHeight = style_vars.header_height;
@@ -20,16 +19,18 @@
     $store.cursor = cursor;
   }
 
-  export const padding_top = `calc(2 * ${padding} + ${headerHeight})`;
+  const padding_top = `calc(2 * ${padding} + ${headerHeight})`;
 </script>
 
 <main
-        style="padding: 0 {padding};"
+        style="padding: {padding_top} {padding} 0 {padding};"
 >
     <Header/>
     <Cursor bind:this={cursor}/>
 
     <slot/>
+
+    <Footer />
 </main>
 
 <style lang="scss">
@@ -42,8 +43,8 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
 
     cursor: none;
 
