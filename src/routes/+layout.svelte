@@ -30,7 +30,7 @@
 
     <slot/>
 
-    <Footer />
+<!--    <Footer />-->
 </main>
 
 <style lang="scss">
@@ -48,8 +48,8 @@
 
     cursor: none;
 
-    background-color: $app-bg-light;
-    color: $green-light;
+    background-color: $blue;
+    color: $app-bg-dark;
     transition: background-color 0.3s ease-in-out;
 
     :global(body.dark) & {

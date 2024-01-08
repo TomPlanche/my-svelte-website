@@ -19,7 +19,8 @@
 	import Menu from '$lib/components/Menu.svelte';
 
 	// Variables
-	const {main_padding, padding_top} = style_vars;
+	const {padding_top} = style_vars;
+	const pageMinHeight = $store.pageMinHeight
 
 
 	// references
@@ -27,8 +28,7 @@
 	let image: HTMLElement;
 
 	let scrollTriggerTrigger: HTMLElement;
-	let titleContainer: HTMLElement;
-	let dummy: HTMLElement;
+	let title: HTMLElement;
 
 	let startAnimation;
 
@@ -40,8 +40,8 @@
 				// when the top of the trigger hits the middle of the viewport
 				start: 'top 50%',
 				// when the bottom of the trigger hits the top of the viewport
-				end: '50% 50%',
-				scrub: true
+				end: '20% 50%',
+				scrub: true,
 			},
 			defaults: {
 				ease: 'sine.inOut'
@@ -50,37 +50,16 @@
 
 		scrollTl
 			.fromTo(
-				scrollTriggerTrigger,
+				title,
 				{
-					paddingTop: 0
-				},
-				{
-					ease: 'power4.out',
-					paddingTop: $store.paddingTopEnd
-				}
-			)
-			.fromTo(
-				titleContainer,
-				{
-					transform: `translateY(calc(-100% - ${main_padding})`,
 					fontSize: '5rem'
 				},
 				{
 					fontSize: '8rem',
-					transform: 'translateY(0)'
+					translateY: 0
 				},
 				'<'
 			)
-			.fromTo(
-				dummy,
-				{
-					flex: 0
-				},
-				{
-					flex: 1
-				},
-				'<'
-			);
 	}
 
 	// Methods
@@ -165,18 +144,18 @@
 </section>
 
 {#if $store.loadingAnimationIsDone}
-	<section class="about-me" bind:this={scrollTriggerTrigger}>
-		<Hoverable>
-			<div
-				class="title-container"
-				bind:this={titleContainer}
-				on:click={() => scrollTo(scrollTriggerTrigger)}
-				in:fade
-				out:fade
-			>
-				<h1 class="section-title">ABOUT</h1>
-				<div class="dummy" bind:this={dummy}></div>
-			</div>
+	<section class="about-me" bind:this={scrollTriggerTrigger} style="max-height: {pageMinHeight}; padding-bottom: {padding_top}">
+		<Hoverable
+		>
+			<button
+					class="section-title"
+
+					bind:this={title}
+					in:fade
+					out:fade
+					on:click={() => scrollTo(scrollTriggerTrigger)}
+
+			>ABOUT</button>
 		</Hoverable>
 
 		<p>
@@ -201,7 +180,7 @@
 					</g>
 				</svg>
 			</HoverableLink>
-			but in order to learn, I rebuilt (and improved it) in
+			but in order to learn, I rebuilt (and improved) it in
 			<HoverableLink
 				title="Svelte"
 				link="https://svelte.dev/"
@@ -221,7 +200,6 @@
 			I also worked with PHP frameworks such as
 			<HoverableLink title="Laravel" link="https://laravel.com/" alt="Laravel Logo" class="laravel">
 				<svg
-					version="1.1"
 					id="Layer_1"
 					xmlns="http://www.w3.org/2000/svg"
 					x="0px"
@@ -298,48 +276,12 @@
 	:global(body.light) {
 		.title-container,
 		.intro {
-			color: $green-dark;
-		}
-
-		.img-container {
-			img {
-				// make a filter to transform the blue from the image to green
-				filter: invert(20%);
-			}
+			color: $app-bg-dark;
 		}
 	}
 
 	section {
 		width: 100%;
-
-		.title-container {
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			font-size: 4rem;
-
-			.section-title {
-				font-weight: 900;
-				text-align: center;
-
-				font-family: 'PP NeueBit', serif;
-
-				display: inline-flex;
-
-				text-transform: uppercase;
-
-				&:before {
-					content: '>_';
-					margin-right: 1rem;
-				}
-			}
-
-			.dummy {
-				width: 0;
-				transition: width 0.2s ease-in-out;
-			}
-		}
 
 		&.intro {
 			display: flex;
@@ -436,14 +378,36 @@
 		}
 
 		&.about-me {
+			display: contents;
+
+			.section-title {
+				font-weight: 900;
+				text-align: center;
+
+				font-family: 'PP NeueBit', serif;
+
+				display: inline-flex;
+
+				text-transform: uppercase;
+
+				transform: translateY(-100%);
+
+				&:before {
+					content: '>_';
+					margin-right: 1rem;
+				}
+			}
+
 			p {
-				font-size: 2.5rem;
+				font-size: 2.75rem;
 				font-weight: 400;
 				line-height: 1.25;
-				text-align: left;
+				text-align: justify;
 				//font-family: "Radikal", serif;
 				//font-family: "Fraktion Mono", serif;
-				font-family: 'Charlevoix', serif;
+				font-family: 'Reckless', serif;
+
+
 
 				align-items: center;
 
@@ -488,14 +452,35 @@
 						@include backgrounds(hsl(195, 86%, 40%), #087ea4);
 						@include backgrounds-with-svg(#087ea4, white);
 
+						:global(body.light) & {
+							@include backgrounds(#087ea4, hsl(195, 86%, 40%));
+							@include backgrounds-with-svg($app-bg-dark, white);
+
+							svg {
+								transition: transform 0.2s ease-in-out;
+							}
+
+							&:hover {
+								svg {
+									transform: rotate(90deg);
+								}
+							}
+						}
+
 						svg {
-							transition: transform 0.2s ease-in-out;
+							transition: all 0.2s ease-in-out;
 						}
 
 						&:hover {
 							svg {
 								transform: rotate(90deg);
 							}
+						}
+					}
+
+					&.laravel {
+						svg {
+							height: 3rem;
 						}
 					}
 				}

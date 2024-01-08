@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import {onMount} from "svelte";
+  import {onDestroy, onMount} from "svelte";
   import {fly} from "svelte/transition";
 
   import {gsap} from "gsap/dist/gsap";
@@ -39,7 +39,7 @@
   let changeThemeBtnHovered: boolean = false;
   let hasBeenHovered: boolean = false;
 
-  let clockInterval: number;
+  let clockInterval;
   let changeThemeBtnInterval: number;
 
 
@@ -87,6 +87,12 @@
       });
     }, 100);
   });
+
+  // On Destroy
+  onDestroy(() => {
+    clearInterval(clockInterval);
+  });
+
 
 
 </script>
@@ -169,8 +175,7 @@
   color: $blue;
 
   :global(body.light) & {
-    color: $green-dark;
-    background-color: $green-light-dimmed;
+    color: $app-bg-dark;
   }
 
   .title {

@@ -43,6 +43,14 @@
 
   padding: .15rem .5rem;
 
+  :global(body.light) & {
+    transition: color .2s ease-in-out;
+
+    &:hover {
+      color: white;
+    }
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -424,6 +432,13 @@ $footer-height: 5rem;
   font-style: normal;
 }
 
+/* Reckless */
+@font-face {
+  font-family: 'Reckless';
+  src: url('$lib/fonts/Reckless.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 /**
  * End of file src/SCSS/_variables.scss
