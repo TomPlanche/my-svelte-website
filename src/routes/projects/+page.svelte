@@ -1,22 +1,21 @@
 <script lang="ts">
 	// Imports
 	import { onMount } from 'svelte';
-  import {store, type T_Tag} from '$lib/appStore';
+  import {store} from '$lib/appStore';
 	import MultiChoiceSelector from '$lib/components/MultiChoiceSelector.svelte';
 	import Menu from '$lib/components/Menu.svelte';
   import {style_vars} from "$lib/globals";
   import Project from "$lib/components/Project.svelte";
-  import type {T_Repository} from "../api/repositories/+server";
   import type {T_Project} from "$lib/types";
 
 	// Variables
-	/** @type {import('./$types').PageData} */
+	/** @type {T_ProjectData)} */
 	export let data;
 
 	let selectedChoices: string[] = [];
 	const {padding_top} = style_vars;
 
-  let projects: T_Project[] = data.repositories;
+  let projects: T_Project[] = [];
 
 	// Functions
 	const handleChoicesUpdated = (event: CustomEvent<{ choices: string[] }>) => {
@@ -45,12 +44,19 @@
 
 <h1>Projects</h1>
 <section style="min-height: calc(100vh - {padding_top});">
-	<MultiChoiceSelector on:choicesUpdated={handleChoicesUpdated} />
+  <div class="filter">
+    <span>Filters: </span>
+	  <MultiChoiceSelector on:choicesUpdated={handleChoicesUpdated} />
+  </div>
 
-  <div class="projects">
-    {#each projects as project}
-      <Project {...project} />
-    {/each}
+  <div class="projects" style="margin-bottom: {padding_top};">
+    {#if projects}
+      {#each projects as project}
+        <Project {...project} />
+      {/each}
+    {:else}
+      <p>No projects found</p>
+    {/if}
   </div>
 </section>
 
@@ -72,20 +78,31 @@
     justify-content: flex-start;
     align-items: flex-start;
 
+    .filter {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+
+      margin: 2rem 0;
+
+    }
+
     .projects {
       height: 100%;
       width: 100%;
 
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       grid-auto-rows: 1fr;
       grid-gap: 1rem;
 
 
-      @for $i from 0 through 4 {
-        @media screen and (max-width: 1280px - (256 * $i)) {
+      @for $i from 0 through 5 {
+        @media screen and (max-width: 1536px - (300 * $i)) {
           & {
-            grid-template-columns: repeat(4 - ($i + 1), minmax(0, 1fr));
+            grid-template-columns: repeat(5 - ($i + 1), minmax(0, 1fr));
           }
         }
       }

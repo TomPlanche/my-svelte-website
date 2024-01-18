@@ -22,9 +22,6 @@
   const defaultOnEnter: T_OnEnter = (
     cursorOptions?: T_CursorOptions
   ) => {
-
-    console.log(`[Hoverable] defaultOnEnter`, cursorOptions);
-
     $store.cursor.setCursorParams({
       ...defaultEnterOptions,
       ...cursorOptions,
@@ -99,17 +96,17 @@
 </script>
 
 <div
-        aria-hidden="true"
-        on:mouseenter={() => defaultOnEnter(onEnterOptions)}
-        on:mouseleave={() => defaultOnLeave(onLeaveOptions)}
+    aria-hidden="true"
+    class={passedClass}
+    on:click={onClick}
 
-        on:click={onClick}
+    on:mouseenter={() => defaultOnEnter(onEnterOptions)}
 
-        class={passedClass}
+    on:mouseleave={() => defaultOnLeave(onLeaveOptions)}
 
-        style:display="contents"
+    style:display="contents"
 >
-    <slot>
-        <span style="display: flex; flex-direction: row; align-content: center; align-items: center">You need to add some content to your `<pre>Hoverable</pre>` component</span>
-    </slot>
+  <slot>
+    <span style="display: flex; flex-direction: row; align-content: center; align-items: center">You need to add some content to your `<pre>Hoverable</pre>` component</span>
+  </slot>
 </div>

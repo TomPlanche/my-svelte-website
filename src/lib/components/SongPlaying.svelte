@@ -12,7 +12,20 @@
 
   // Variables
   // Props
+  /**
+   * Debug mode
+   *
+   * @type {boolean}
+   */
   export let debug = false;
+
+  /**
+   * Show even if the song is not playing.
+   * Use fake data.
+   *
+   * @type {boolean}
+   */
+  export let showIfNotPlaying = false;
 
   // Refs
   let container: HTMLDivElement;
@@ -168,6 +181,17 @@
         }
       })
       .catch(() => {
+        if (showIfNotPlaying) {
+          song = {
+            album: {
+              "#text": "444 Nuits",
+              mbid: ""
+            },
+          } as T_RecentTracksTrackAll;
+        } else {
+          song = null;
+        }
+
         song = null;
       });
   }
@@ -183,56 +207,56 @@
 </script>
 
 {#if (song)}
-    <Hoverable
-            onEnterOptions={{
+  <Hoverable
+      onEnterOptions={{
              opacity: .125,
              innerText: '🎧'
            }}
+  >
+    <div
+        class="song_container"
+        style={finalStyle}
+
+        aria-disabled="true"
+
+        bind:this={container}
+        on:click={handleClick}
+
+        in:scale={{ duration: 200 }}
+        out:scale={{ duration: 200 }}
+
+        aria-hidden="true"
     >
+
+      <div class="img-container">
+        <img
+            src={song.image[song.image.length - 1]["#text"]}
+            alt="Song cover"
+        />
+
+        {#if (size === "small")}
+          <div class="overlay">
+            <i class="gg-loadbar-sound"></i>
+          </div>
+        {/if}
+      </div>
+
+
+      {#if (size === "large")}
         <div
-                class="song_container"
-                style={finalStyle}
+            class="song_container__infos"
+            bind:this={infos}
 
-                aria-disabled="true"
-
-                bind:this={container}
-                on:click={handleClick}
-
-                in:scale={{ duration: 200 }}
-                out:scale={{ duration: 200 }}
-
-                aria-hidden="true"
+            in:fade={{ duration: 200, delay: 1500 }}
+            out:fade={{ duration: 200 }}
         >
-
-            <div class="img-container">
-                <img
-                        src={song.image[song.image.length - 1]["#text"]}
-                        alt="Song cover"
-                />
-
-                {#if (size === "small")}
-                    <div class="overlay">
-                        <i class="gg-loadbar-sound"></i>
-                    </div>
-                {/if}
-            </div>
-
-
-            {#if (size === "large")}
-                <div
-                        class="song_container__infos"
-                        bind:this={infos}
-
-                        in:fade={{ duration: 200, delay: 1500 }}
-                        out:fade={{ duration: 200 }}
-                >
-                    <p>{song.name}</p>
-                    <p>{song.artist["#text"]}</p>
-                </div>
-            {/if}
-
+          <p>{song.name}</p>
+          <p>{song.artist["#text"]}</p>
         </div>
-    </Hoverable>
+      {/if}
+
+    </div>
+  </Hoverable>
 {/if}
 
 <style lang="scss">
@@ -250,10 +274,6 @@
     padding: 4px;
 
     outline: 1px solid $outline-dark;
-
-    :global(body.light) & {
-      outline: 1px solid $outline-light;
-    }
 
     // Blurry background
     background-color: #eeeeee25;

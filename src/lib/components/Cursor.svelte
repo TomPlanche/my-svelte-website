@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Imports
-    import {spring} from "svelte/motion";
+	import {spring} from "svelte/motion";
 	import type {T_CursorOptions} from "../types";
 
 	// Variables
@@ -22,6 +22,11 @@
 	let innerText: string;
 
 	// Functions
+	/**
+	 * Set the cursor params
+	 * This function is set to be used by the $store.cursor.setParams function in the store.
+	 * @param params
+	 */
 	export const setCursorParams = (params: T_CursorOptions) => {
 		if (params.isHover) {
 			// params.svg can be undefined, a svg string or a boolean
@@ -159,7 +164,7 @@
 	}
 
 	.html-container {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 

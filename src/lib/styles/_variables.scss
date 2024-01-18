@@ -440,6 +440,22 @@ $footer-height: 5rem;
   font-style: normal;
 }
 
+/* Monocraft */
+@font-face {
+  font-family: 'Monocraft';
+  src: url('$lib/fonts/Monocraft.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Terminal Grotesk */
+@font-face {
+  font-family: 'Terminal Grotesk';
+  src: url('$lib/fonts/terminal-grotesque.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /**
  * End of file src/SCSS/_variables.scss
  */

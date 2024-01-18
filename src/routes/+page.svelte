@@ -144,7 +144,7 @@
 </section>
 
 {#if $store.loadingAnimationIsDone}
-	<section class="about-me" bind:this={scrollTriggerTrigger} style="max-height: {pageMinHeight}; padding-bottom: {padding_top}">
+	<section class="aboutMe" bind:this={scrollTriggerTrigger} style="height: 200vh">
 		<Hoverable
 		>
 			<button
@@ -265,7 +265,6 @@
 		</p>
 	</section>
 
-	<Menu />
 
 	<SongPlaying />
 {/if}
@@ -377,8 +376,10 @@
 			}
 		}
 
-		&.about-me {
+		&.aboutMe {
 			display: contents;
+
+			height: 200vh;
 
 			.section-title {
 				font-weight: 900;
@@ -407,11 +408,9 @@
 				//font-family: "Fraktion Mono", serif;
 				font-family: 'Reckless', serif;
 
-
-
 				align-items: center;
 
-				padding: 4rem 0;
+				padding: 2rem;
 
 				@media (max-width: 860px) {
 					padding: 2rem 2rem;

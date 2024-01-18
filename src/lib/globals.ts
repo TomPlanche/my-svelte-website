@@ -25,6 +25,8 @@ const songPlayer = {
 	}
 };
 
+
+
 export const style_vars = {
 	main_padding: padding,
 	header_height: headerHeight,

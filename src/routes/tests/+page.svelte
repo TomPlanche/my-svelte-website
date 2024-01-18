@@ -1,11 +1,16 @@
 <script lang="ts">
   // Imports
   import {onMount} from "svelte";
-  import Hoverable from "$lib/components/Hoverable.svelte";
   import {store} from "$lib/appStore";
-  import Menu from "$lib/components/Menu.svelte";
+  import {Canvas} from "@threlte/core";
+  import Scene from "$lib/components/three/Scene.svelte";
+  import DebugInterface from "$lib/components/three/DebugInterface.svelte";
 
   // Variables
+  /** @type {import('./$types').PageData} */
+  export let data;
+
+  $: data && console.log(data);
 
   // Lifecycle
   onMount(() => {
@@ -39,8 +44,13 @@
 <!--    <span>ALED</span>-->
 <!--</Hoverable>-->
 
-<Menu/>
+<!--<Menu/>-->
 
+<Canvas>
+  <Scene data={data}/>
+
+  <DebugInterface />
+</Canvas>
 
 <style lang="scss">
   @import "../../lib/styles/variables";

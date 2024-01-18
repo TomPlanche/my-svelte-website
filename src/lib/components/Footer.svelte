@@ -19,6 +19,7 @@
   <footer
       style="height: {songPlayer.large.height};"
   >
+    <img src="/imgs/monMiiSourireMid.png" alt="Me" title="Me">
     <p>
       Made with <img src="/imgs/pixel-heart.gif" alt="Heart GIF"> by me :)
     </p>
@@ -33,6 +34,11 @@
     align-items: center;
 
     width: 100%;
+
+    img {
+      height: 80%;
+      width: auto;
+    }
 
     p {
       display: flex;

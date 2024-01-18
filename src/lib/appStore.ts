@@ -13,21 +13,23 @@ import { style_vars } from '$lib/globals';
 
 // VARIABLES ================================================================================================ VARIABLE
 const filters = {
-	API: 'API',
-	Backend: 'Backend',
-	Frontend: 'Frontend',
-	Other: 'Other',
-	Programming: 'Programming'
+  API: 'API',
+  Backend: 'Backend',
+  Frontend: 'Frontend',
+  Other: 'Other',
+  Programming: 'Programming',
+  Mobile: 'Mobile',
 };
 
 export const TAGS = {
-	Python: 'Python',
-	TypeScript: 'TypeScript',
-	JavaScript: 'JavaScript',
-	Rust: 'Rust',
-	SCSS: 'SCSS',
+  Python: 'Python',
+  TypeScript: 'TypeScript',
+  JavaScript: 'JavaScript',
+  Rust: 'Rust',
+  SCSS: 'SCSS',
+  Svelte: 'Svelte',
 
-	...filters
+  ...filters,
 };
 // Type(s)
 export type T_THEME = 'dark' | 'light';
@@ -35,20 +37,20 @@ export type T_THEME = 'dark' | 'light';
 export type T_Tag = keyof typeof TAGS;
 
 export type T_state = {
-	theme: T_THEME;
-	lastFMHandlerInstance: LastFM_handler;
-	paddingTopStart: string;
-	paddingTopEnd: string;
-	pageMinHeight: string;
-	projectTags: readonly T_Tag[];
-	projectColors: Record<T_Tag, string>;
+  theme: T_THEME;
+  lastFMHandlerInstance: LastFM_handler;
+  paddingTopStart: string;
+  paddingTopEnd: string;
+  pageMinHeight: string;
+  projectTags: readonly T_Tag[];
+  projectColors: Record<T_Tag, string>;
 
-	// refs
-	cursor: SvelteComponent | null;
+  // refs
+  cursor: SvelteComponent | null;
 
-	loadingAnimationIsDone: boolean;
+  loadingAnimationIsDone: boolean;
 
-	toggleTheme: () => void;
+  toggleTheme: () => void;
 };
 
 // Other(s)
@@ -61,16 +63,18 @@ const page_size_with_padding = `calc(100vh - (2 * ${padding} + ${headerHeight}))
 
 const projects_tags = Object.keys(filters) as readonly T_Tag[];
 const projects_colors = {
-	API: '#2b748950',
-	Backend: '#F3273550',
-	Frontend: '#087ea450',
-	JavaScript: '#f1e05a50',
-	Other: 'rgba(129,140,248,.4)',
-	Programming: 'rgba(235,255,66,0.31)',
-	Python: '#3572A550',
-	Rust: '#dea58450',
-	SCSS: '#c6538c50',
-	TypeScript: '#007acc50'
+  API: '#2b748980',
+  Backend: '#F3273580',
+  Frontend: '#087ea480',
+  JavaScript: '#f1e05a80',
+  Other: 'rgba(129,140,248,.8)',
+  Programming: 'rgba(235,255,66,.8)',
+  Python: '#3572A580',
+  Rust: '#dea58480',
+  SCSS: '#c6538c80',
+  TypeScript: '#007acc80',
+  Svelte: '#f0534050',
+  Mobile: '#61dafb80',
 } as Record<T_Tag, string>;
 // END VARIABLES ======================================================================================= END VARIABLES
 
@@ -80,22 +84,22 @@ const projects_colors = {
 
 // CODE ========================================================================================================= CODE
 export const store = writable<T_state>({
-	theme: 'dark', // Set your default theme here,
-	lastFMHandlerInstance: LastFM_handler.getInstance('Tom_planche'),
-	paddingTopStart: padding_top_start,
-	paddingTopEnd: padding_top_end,
-	pageMinHeight: page_size_with_padding,
+  theme: 'dark', // Set your default theme here,
+  lastFMHandlerInstance: LastFM_handler.getInstance('Tom_planche'),
+  paddingTopStart: padding_top_start,
+  paddingTopEnd: padding_top_end,
+  pageMinHeight: page_size_with_padding,
 
-	projectTags: projects_tags,
-	projectColors: projects_colors,
+  projectTags: projects_tags,
+  projectColors: projects_colors,
 
-	loadingAnimationIsDone: false,
+  loadingAnimationIsDone: false,
 
-	toggleTheme() {
-		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
-		this.theme = this.theme === 'dark' ? 'light' : 'dark';
-		console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
-	}
+  toggleTheme() {
+    console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
+    this.theme = this.theme === 'dark' ? 'light' : 'dark';
+    console.log(`[appStore] toggleTheme() - this.theme: ${this.theme}`);
+  },
 } as T_state);
 // END CODE =======================================================================================  END COMPONENT
 

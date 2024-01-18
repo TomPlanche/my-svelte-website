@@ -98,6 +98,9 @@
 
             on:mouseenter={handleMouseEnter}
             on:mouseleave={handleMouseLeave}
+
+
+            in:fly={{y: '-100%', duration: 500, opacity: 0}}
     >
         <ul bind:this={ul}>
             {#each links as link, i}
@@ -107,21 +110,22 @@
                 "
 
             >
-                <a
-                    href={link.url}
+                <Hoverable>
+                    <a
+                        href={link.url}
 
-                    style="
-                        background-color: {`rgba(255,255,255, ${.25 - i * .05})`};
-                        height: {header_height};
-                        transform: {i > 0 ? `translateX(-${90 * i}%)` : ''};
-                    "
-                    class="a-to-animate"
-                    bind:this={menuItems[i]}
-                in:fly={{y: '-100%', duration: 500, opacity: 0}}
+                        style="
+                            background-color: {`rgba(255,255,255, ${.25 - i * .05})`};
+                            height: {header_height};
+                            transform: {i > 0 ? `translateX(-${90 * i}%)` : ''};
+                        "
+                        class="a-to-animate"
+                        bind:this={menuItems[i]}
 
-                >
-                    {link.name}
-                </a>
+                    >
+                        {link.name}
+                    </a>
+                </Hoverable>
             </li>
             {/each}
         </ul>

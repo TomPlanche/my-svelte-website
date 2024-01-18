@@ -15,6 +15,7 @@ build/
 .svelte-kit/
 .idea/
 src/lib/fonts
+src/lib/secrets.ts
 
 # Files
 .commitignore

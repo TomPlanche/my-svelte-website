@@ -121,6 +121,7 @@
     width: max-content;
 
     padding: .25rem .5rem;
+      margin: .25rem .5rem;
     border-radius: .75rem;
 
     outline: 1px solid $outline-dark;

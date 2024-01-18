@@ -7,11 +7,13 @@
   import {type SvelteComponent} from "svelte";
   import {store} from "$lib/appStore";
   import Footer from "$lib/components/Footer.svelte";
+  import Menu from "$lib/components/Menu.svelte";
+  import SongPlaying from "$lib/components/SongPlaying.svelte";
 
   // Variables
   let headerHeight = style_vars.header_height;
   let padding = style_vars.main_padding;
-
+  let bottomPadding = style_vars.songPlayer.large.height;
   // ref
   let cursor: SvelteComponent;
 
@@ -20,13 +22,16 @@
   }
 
   const padding_top = `calc(2 * ${padding} + ${headerHeight})`;
+
 </script>
 
 <main
-        style="padding: {padding_top} {padding} 0 {padding};"
+        style="padding: {padding_top} {padding} {bottomPadding} {padding};"
 >
     <Header/>
     <Cursor bind:this={cursor}/>
+
+    <Menu />
 
     <slot/>
 
