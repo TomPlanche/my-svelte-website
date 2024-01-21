@@ -45,6 +45,12 @@ export type T_ProjectsData = {
   };
 };
 
+export type TShader = {
+  vertexShader: string;
+  fragmentShader: string;
+};
+
+
 /**
  * End of file src/types.ts
  */

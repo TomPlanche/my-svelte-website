@@ -15,7 +15,13 @@ build/
 .svelte-kit/
 .idea/
 src/lib/fonts
-src/lib/secrets.ts
+*/*secrets.ts
+
+src/lib/components/Clock.svelte
+src/lib/components/DetectEnterBtn.svelte
+src/lib/components/Marquee.svelte
+src/lib/components/Tooltip.svelte
+
 
 # Files
 .commitignore
