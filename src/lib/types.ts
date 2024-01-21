@@ -50,7 +50,11 @@ export type TShader = {
   fragmentShader: string;
 };
 
-
+export type TPoint = {
+  x: number;
+  y: number;
+  z: number;
+};
 /**
  * End of file src/types.ts
  */

@@ -7,6 +7,7 @@
   import {onMount} from "svelte";
   import type {TUserLocation} from "../../../routes/api/where/+server";
   import Globe from "$lib/components/three/Globe.svelte";
+  import {lonLatToVector3} from "$lib/utils";
 
   // Setup
   interactivity();
@@ -51,43 +52,15 @@
   // );
 
   // Functions
-  /**
-   * Converts lat/long to Vector3 for use in Three.js
-   * This function will be used to place markers on the 'earth'
-   *
-   * @param lat {number} - Latitude
-   * @param long {number} - Longitude
-   * @param debug {boolean} - Debug mode
-   *
-   * @returns {Vector3}
-   */
-  const latLongToVector3 = (
-    lat: number,
-    long: number,
-    debug = false
-  ): Vector3 => {
-    if (debug) {
-      console.log(`[Scene] latLongToVector3: ${lat}, ${long}`);
-    }
-
-    const phi = (lat * Math.PI) / 180;
-    const theta = ((long - 180) * Math.PI) / 180;
-
-    const x = -(earthVars.radius * Math.cos(phi) * Math.cos(theta));
-    const y = earthVars.radius * Math.sin(phi);
-    const z = earthVars.radius * Math.cos(phi) * Math.sin(theta);
-
-    if (debug) {
-      console.log(`[Scene] latLongToVector3: ${x}, ${y}, ${z}`);
-    }
-
-    return new Vector3(x, y, z);
-  }
 
   // Watchers
   // $: userCoords && console.log(`[Scene] User location: ${JSON.stringify(userCoords)}`);
   $: if (data) {
-    userPosition = latLongToVector3(data.userLocation.coords.lat, data.userLocation.coords.lon);
+    userPosition = new Vector3(
+      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).x,
+      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).y,
+      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).z,
+    );
   }
 
   // $: if (camera && userPosition) {
@@ -146,20 +119,16 @@
 <!--  </T.Mesh>-->
 
 <!--  &lt;!&ndash; User Location Marker &ndash;&gt;-->
-<!--  {#if data}-->
-<!--    <T.Mesh-->
-<!--          position={[-->
-<!--            latLongToVector3(data.userLocation.coords.lat, data.userLocation.coords.lon).x,-->
-<!--            latLongToVector3(data.userLocation.coords.lat, data.userLocation.coords.lon).y,-->
-<!--            latLongToVector3(data.userLocation.coords.lat, data.userLocation.coords.lon).z,-->
-<!--          ]}-->
-<!--    >-->
-<!--      <T.SphereGeometry-->
-<!--          args={[.01, 32, 32]}-->
-<!--      />-->
-<!--      <T.MeshBasicMaterial color="red" />-->
-<!--    </T.Mesh>-->
-<!--  {/if}-->
+  {#if data}
+    <T.Mesh
+          position={[userPosition.x, userPosition.y, userPosition.z]}
+    >
+      <T.SphereGeometry
+          args={[.01, 32, 32]}
+      />
+      <T.MeshBasicMaterial color="red" />
+    </T.Mesh>
+  {/if}
 <!--</T.Group>-->
 
 <!--&lt;!&ndash; Clouds&ndash;&gt;-->

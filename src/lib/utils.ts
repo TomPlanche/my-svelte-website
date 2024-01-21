@@ -1,11 +1,11 @@
 /**
- * @file src/routes/tests/+page.ts
- * @description +page
+ * @file src/lib/utils.ts
+ * @description utils
  * @author Tom Planche
  */
-import type {TUserLocation} from "../api/where/+server";
 
 // IMPORTS ===================================================================================================  IMPORTS
+
 // END IMPORTS ==========================================================================================   END IMPORTS
 
 // VARIABLES ================================================================================================ VARIABLE
@@ -15,37 +15,31 @@ import type {TUserLocation} from "../api/where/+server";
 // END VARIABLES ======================================================================================= END VARIABLES
 
 // FUNCTIONS ================================================================================================ FUNCTIONS
+import type {TPoint} from "$lib/types";
 
+/**
+ * Converts long/lat to a vector3
+ *
+ * @param long {number} longitude
+ * @param lat {number} latitude
+ * @param radius {number} radius of the sphere
+ */
+export const lonLatToVector3 = (long: number, lat: number, radius: number) => {
+  const phi = (lat * Math.PI) / 180;
+  const theta = ((long - 180) * Math.PI) / 180;
+
+  const x = -(radius * Math.cos(phi) * Math.cos(theta));
+  const y = radius * Math.sin(phi);
+  const z = radius * Math.cos(phi) * Math.sin(theta);
+
+  return { x, y, z } as TPoint;
+};
 // END FUNCTIONS ======================================================================================== END FUNCTIONS
 
 // CODE ========================================================================================================= CODE
-export const load = async ({ url, fetch }) => {
-  // const userLocation = await fetch(`${url.origin}/api/where`)
-  //   .then((res) => res.json())
-  //   .catch((e) => {
-  //     console.log(`[ERROR] ${e}`);
-  //
-  //     return {
-  //       status: 500,
-  //       error: 'Hey, you are not supposed to be here!',
-  //     }
-  //   });
 
-  const userLocation: TUserLocation = {
-    location: 'Paris, France',
-    coords: {
-      lat: 48.864716,
-      lon: 2.349014,
-    },
-    ip: '123.456.789.11',
-  }
-
-  return {
-    userLocation,
-  };
-};
 // END CODE =======================================================================================  END COMPONENT
 
 /**
- * End of file src/routes/tests/+page.ts
+ * End of file src/lib/utils.ts
  */
