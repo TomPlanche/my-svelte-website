@@ -20,3 +20,4 @@ src/lib/fonts
 .commitignore
 commit_message.md
 yarn.lock
+src/lib/secrets.ts

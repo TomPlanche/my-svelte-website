@@ -1,21 +1,24 @@
 <script lang="ts">
 	// Imports
-    import {spring} from "svelte/motion";
-	import type {T_CursorOptions} from "../types";
+	import { spring } from 'svelte/motion';
+	import type { T_CursorOptions } from '../types';
 
 	// Variables
-	const cursor_base = {size: 15};
+	const cursor_base = { size: 15 };
 
 	// Springs
 	const opacity = spring(0);
-	const coords = spring({
-		x: 0,
-		y: 0,
-	}, {stiffness: 0.3, damping: 0.8});
-    const size = spring(cursor_base.size);
+	const coords = spring(
+		{
+			x: 0,
+			y: 0
+		},
+		{ stiffness: 0.3, damping: 0.8 }
+	);
+	const size = spring(cursor_base.size);
 	const blur = spring(0);
 
-	let background = "#eeeeee90";
+	let background = '#eeeeee90';
 	let hasMoved = false as boolean;
 
 	let innerSvg: string;
@@ -35,9 +38,7 @@
 
 			opacity.set(params.opacity ?? 0.5);
 			blur.set(params.blur ?? 0);
-			background = params.backgroundColor ?? "#eeeeee90";
-
-
+			background = params.backgroundColor ?? '#eeeeee90';
 		} else {
 			if (params.svg === false || params.svg === undefined) {
 				innerSvg = undefined;
@@ -51,7 +52,7 @@
 			}
 
 			blur.set(params.blur ?? 0);
-			background = params.backgroundColor ?? "#eeeeee90";
+			background = params.backgroundColor ?? '#eeeeee90';
 		}
 
 		size.set(params.scale ? cursor_base.size * params.scale : cursor_base.size);
@@ -74,8 +75,8 @@
 
 		coords.set({
 			x: e.clientX,
-			y: e.clientY,
-		})
+			y: e.clientY
+		});
 	}}
 	on:mousedown={() => {
 		size.update((s) => s * 1.5);
@@ -86,9 +87,7 @@
 />
 
 <!-- The svg is always displayed -->
-<svg
-	aria-hidden="true"
->
+<svg aria-hidden="true">
 	<circle
 		cx={$coords.x}
 		cy={$coords.y}
@@ -121,7 +120,10 @@
 		style="
 			height: {$size * 2}px;
 			width: {$size * 2}px;
-			transform: translate({$coords.x - $size}px, {$coords.y - $size}px) scale({$size / cursor_base.size});
+			transform: translate({$coords.x - $size}px, {$coords.y - $size}px) scale({$size /
+			cursor_base.size});
+			pointer-events: none;
+			position: fixed;
 		"
 	>
 		{#if $$slots.default}
@@ -131,8 +133,6 @@
 		{/if}
 	</div>
 {/if}
-
-
 
 <style lang="scss">
 	svg {
@@ -146,7 +146,6 @@
 		height: 100%;
 
 		z-index: 99998;
-
 	}
 
 	img {
@@ -166,7 +165,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
 
 		z-index: 99998;
 

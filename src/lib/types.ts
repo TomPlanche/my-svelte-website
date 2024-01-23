@@ -33,12 +33,26 @@ export type T_Project = {
 
 	link?: string;
 
-	img?: string;
-	imgAlt?: string;
+	image?: string;
+	imageAlt?: string;
 
 	paragraph?: string;
 };
 
+export type T_ProjectsData = {
+	data: {
+		repositories: T_Project[];
+	};
+};
+
+export type TUserLocation = {
+	location: string;
+	coords: {
+		lat: number;
+		lon: number;
+	};
+	ip: `${number}.${number}.${number}.${number}`;
+};
 /**
  * End of file src/types.ts
  */

@@ -19,9 +19,8 @@
 	import Menu from '$lib/components/Menu.svelte';
 
 	// Variables
-	const {padding_top} = style_vars;
-	const pageMinHeight = $store.pageMinHeight
-
+	const { padding_top } = style_vars;
+	const pageMinHeight = $store.pageMinHeight;
 
 	// references
 	let content: HTMLElement;
@@ -41,25 +40,24 @@
 				start: 'top 50%',
 				// when the bottom of the trigger hits the top of the viewport
 				end: '20% 50%',
-				scrub: true,
+				scrub: true
 			},
 			defaults: {
 				ease: 'sine.inOut'
 			}
 		});
 
-		scrollTl
-			.fromTo(
-				title,
-				{
-					fontSize: '5rem'
-				},
-				{
-					fontSize: '8rem',
-					translateY: 0
-				},
-				'<'
-			)
+		scrollTl.fromTo(
+			title,
+			{
+				fontSize: '5rem'
+			},
+			{
+				fontSize: '8rem',
+				translateY: 0
+			},
+			'<'
+		);
 	}
 
 	// Methods
@@ -126,12 +124,15 @@
 	});
 </script>
 
-<section class="intro" style="min-height: calc(100vh - {padding_top}); padding-bottom: {padding_top}">
+<section
+	class="intro"
+	style="min-height: calc(100vh - {padding_top}); padding-bottom: {padding_top}"
+>
 	<div bind:this={content} class="content">
 		<h1>Tom Planche</h1>
 		<h2>
 			Full Stack Developer<br />
-			Programmer
+			Pr0gramm3r
 		</h2>
 	</div>
 	<div bind:this={image} class="image">
@@ -144,18 +145,19 @@
 </section>
 
 {#if $store.loadingAnimationIsDone}
-	<section class="about-me" bind:this={scrollTriggerTrigger} style="max-height: {pageMinHeight}; padding-bottom: {padding_top}">
-		<Hoverable
-		>
+	<section
+		class="about-me"
+		bind:this={scrollTriggerTrigger}
+		style="max-height: {pageMinHeight}; padding-bottom: {padding_top}"
+	>
+		<Hoverable>
 			<button
-					class="section-title"
-
-					bind:this={title}
-					in:fade
-					out:fade
-					on:click={() => scrollTo(scrollTriggerTrigger)}
-
-			>ABOUT</button>
+				class="section-title"
+				bind:this={title}
+				in:fade
+				out:fade
+				on:click={() => scrollTo(scrollTriggerTrigger)}>ABOUT</button
+			>
 		</Hoverable>
 
 		<p>
@@ -260,6 +262,9 @@
 				alt="Rust Logo"
 				class="rust"
 			/><!-- prettier-ignore -->.
+
+
+
 
 
 		</p>
@@ -406,8 +411,6 @@
 				//font-family: "Radikal", serif;
 				//font-family: "Fraktion Mono", serif;
 				font-family: 'Reckless', serif;
-
-
 
 				align-items: center;
 

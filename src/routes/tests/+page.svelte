@@ -1,16 +1,16 @@
 <script lang="ts">
-  // Imports
-  import {onMount} from "svelte";
-  import Hoverable from "$lib/components/Hoverable.svelte";
-  import {store} from "$lib/appStore";
-  import Menu from "$lib/components/Menu.svelte";
+	// Imports
+	import { onMount } from 'svelte';
+	import Hoverable from '$lib/components/Hoverable.svelte';
+	import { store } from '$lib/appStore';
+	import Menu from '$lib/components/Menu.svelte';
 
-  // Variables
+	// Variables
 
-  // Lifecycle
-  onMount(() => {
-    $store.loadingAnimationIsDone = true;
-  })
+	// Lifecycle
+	onMount(() => {
+		$store.loadingAnimationIsDone = true;
+	});
 </script>
 
 <!--<Marquee-->
@@ -39,29 +39,27 @@
 <!--    <span>ALED</span>-->
 <!--</Hoverable>-->
 
-<Menu/>
-
+<Menu />
 
 <style lang="scss">
-  @import "../../lib/styles/variables";
+	@import '../../lib/styles/variables';
 
-  svg,
-  h1 {
-    height: 3rem;
-    width: auto;
+	svg,
+	h1 {
+		height: 3rem;
+		width: auto;
 
-    font-size: 3rem;
-  }
+		font-size: 3rem;
+	}
 
-  span {
-    margin-top: 2rem;
+	span {
+		margin-top: 2rem;
 
-    height: 3rem;
-    font-size: 1.5rem;
+		height: 3rem;
+		font-size: 1.5rem;
 
-    padding: 1rem 3rem;
+		padding: 1rem 3rem;
 
-    background: hotpink;
-  }
-
+		background: hotpink;
+	}
 </style>

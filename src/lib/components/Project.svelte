@@ -1,8 +1,6 @@
 <script lang="ts">
 	// Imports
-	import {
-		store
-	} from '$lib/appStore';
+	import { store } from '$lib/appStore';
 	import type { T_Tag } from '$lib/appStore';
 
 	// Variables
@@ -12,12 +10,13 @@
 	export let link: string = '#';
 	export let tags: T_Tag[] = [];
 	export let tagsColors: Record<T_Tag, string> = $store.projectColors;
-	export let paragraph: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.';
+	export let paragraph: string =
+		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.';
 
 	// Functions
 	const openLink = () => {
 		window.open(link, '_blank');
-	}
+	};
 </script>
 
 <div class="container" on:click={openLink}>
@@ -29,8 +28,8 @@
 				<span
 					style="
 						background: {tagsColors[tag]};
-					"
-				>{tag}</span>
+					">{tag}</span
+				>
 			{/each}
 		</div>
 		<h3>{title}</h3>
@@ -67,7 +66,7 @@
 			flex-direction: row;
 			justify-content: flex-start;
 			align-items: center;
-			gap: .5rem;
+			gap: 0.5rem;
 
 			span {
 				padding: 0.25rem 0.5rem;
@@ -81,7 +80,6 @@
 			font-family: Cirka, sans-serif;
 			font-size: 2.5rem;
 			text-align: left;
-
 
 			overflow: hidden;
 			display: -webkit-box;

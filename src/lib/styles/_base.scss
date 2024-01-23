@@ -5,27 +5,26 @@
  ********************************************/
 
 html {
-  font-size: 100%;
+	font-size: 100%;
 }
 
-
 * {
-  text-align: center;
+	text-align: center;
 
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box; /* Firefox, other Gecko */
-  box-sizing: border-box; /* Opera/IE 8+ */
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box; /* Opera/IE 8+ */
 
-  cursor: none;
+	cursor: none;
 }
 
 // RESPONSIVE ------------------------------------------------------------------
 @for $i from 0 through 12 {
-  @media screen and (max-width: 1440px - (120 * $i)) {
-    html {
-      font-size: 100% - calc(5% * $i);
-    }
-  }
+	@media screen and (max-width: 1440px - (120 * $i)) {
+		html {
+			font-size: 100% - calc(5% * $i);
+		}
+	}
 }
 
 /**

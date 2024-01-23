@@ -6,108 +6,109 @@
 
 /* Mixins */
 @mixin backgrounds($bg-no-hover, $bg-hover) {
-  &::before {
-    background-color: $bg-no-hover;
-  }
+	&::before {
+		background-color: $bg-no-hover;
+	}
 
-  &:hover {
-    &::before {
-      bottom: 0;
-      height: 100%;
-      background-color: $bg-hover;
-    }
-  }
+	&:hover {
+		&::before {
+			bottom: 0;
+			height: 100%;
+			background-color: $bg-hover;
+		}
+	}
 }
 
 @mixin backgrounds-with-svg($svg-color, $svg-color-hover) {
-  svg {
-    color: $svg-color;
-    transition: color .2s ease-in-out;
-  }
+	svg {
+		color: $svg-color;
+		transition: color 0.2s ease-in-out;
+	}
 
-  &:hover {
-    svg {
-      color: $svg-color-hover;
-    }
-  }
+	&:hover {
+		svg {
+			color: $svg-color-hover;
+		}
+	}
 }
 
 @mixin span {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
-  width: max-content;
+	display: inline-flex;
+	align-items: center;
+	height: 100%;
+	width: max-content;
 
-  position: relative;
-  isolation: isolate;
+	position: relative;
+	isolation: isolate;
 
-  padding: .15rem .5rem;
+	padding: 0.15rem 0.5rem;
 
-  :global(body.light) & {
-    transition: color .2s ease-in-out;
+	:global(body.light) & {
+		transition: color 0.2s ease-in-out;
 
-    &:hover {
-      color: white;
-    }
-  }
+		&:hover {
+			color: white;
+		}
+	}
 
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 10%;
-    left: 0;
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 10%;
+		left: 0;
 
-    height: 20%;
-    width: 100%;
+		height: 20%;
+		width: 100%;
 
-    border-radius: 4px;
+		border-radius: 4px;
 
-    z-index: -1;
+		z-index: -1;
 
-    transition: height .2s ease-in-out,
-    width .2s ease-in-out,
-    background-color .2s ease-in-out,
-    bottom .1s ease-in-out;
-  }
+		transition:
+			height 0.2s ease-in-out,
+			width 0.2s ease-in-out,
+			background-color 0.2s ease-in-out,
+			bottom 0.1s ease-in-out;
+	}
 
-  img, svg {
-    height: 2.5rem;
-    width: auto;
+	img,
+	svg {
+		height: 2.5rem;
+		width: auto;
 
-    margin-right: .25rem;
-  }
+		margin-right: 0.25rem;
+	}
 }
 
 /* COLORS */
-$gh-bg: #0D1117;
-$gh-bg-secondary: #161B22;
-$gh-button: #21262D;
-$gh-button-active: #30363D;
-$gh-text: #BED1D9;
-$gh-text-secondary: #8B949E;
-$gh-button-border: #363B42;
-$gh-button-border-active: #8B949E;
-$gh-yellow: #E3B341;
-$gh-blue: #58A6FF;
-$gh-blue-dark: #1F6FEB;
+$gh-bg: #0d1117;
+$gh-bg-secondary: #161b22;
+$gh-button: #21262d;
+$gh-button-active: #30363d;
+$gh-text: #bed1d9;
+$gh-text-secondary: #8b949e;
+$gh-button-border: #363b42;
+$gh-button-border-active: #8b949e;
+$gh-yellow: #e3b341;
+$gh-blue: #58a6ff;
+$gh-blue-dark: #1f6feb;
 $gh-red: #f56140;
-$gh-red-active: #F78166;
+$gh-red-active: #f78166;
 $gh-green: #238636;
-$gh-green-active: #2EA043;
+$gh-green-active: #2ea043;
 $gh-green-dark: #1d5927;
-$gh-border: #30363D;
-$gh-border-dark: #21262D;
+$gh-border: #30363d;
+$gh-border-dark: #21262d;
 
 $app-bg-dark: #080a13;
 $app-bg-light: #e5e9ea;
 
+$green-dark: #092c19;
 
-$green-dark: #092C19;
+$green-medium: #38634c;
 
-$green-medium: #38634C;
-
-$green-light: #8B9C8F;
-$green-light-dimmed: #8B9C8F75;
+$green-light: #8b9c8f;
+$green-light-dimmed: #8b9c8f75;
 
 $black: #02040a;
 $black-dimed: #02040a75;
@@ -133,8 +134,8 @@ $border-color: #30363d;
 $button-bg: #1f6feb;
 $button-hover-bg: #388bfd;
 
-$gold: #D0D066;
-$gold-dimmed: #D0D06650;
+$gold: #d0d066;
+$gold-dimmed: #d0d06650;
 
 $form-bg-black: #161b22;
 $form-bg-white: #a5abb2;
@@ -144,7 +145,7 @@ $green-dimmed: #39d35375;
 
 /* Corner radiuses */
 $outer-corner-radius: 2rem;
-$inner-corner-radius: $outer-corner-radius * .75;
+$inner-corner-radius: $outer-corner-radius * 0.75;
 
 /* Paddings */
 $main-padding: 2rem;
@@ -152,292 +153,291 @@ $main-padding: 2rem;
 /* Heights and Widths*/
 $footer-height: 5rem;
 
-
 /******************************************************* Fonts *******************************************************/
 @font-face {
-  font-family: 'Charlevoix';
-  src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Charlevoix';
+	src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Charlevoix';
-  src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Thin.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Charlevoix';
+	src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Thin.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Charlevoix';
-  src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Charlevoix';
+	src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Charlevoix';
-  src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
+	font-family: 'Charlevoix';
+	src: url('$lib/fonts/PPCharlevoixPro/PPCharlevoix-Black.woff2') format('woff2');
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Editorial New';
-  src: url('$lib/fonts/PPEditorialNew/PPEditorialNew-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Editorial New';
+	src: url('$lib/fonts/PPEditorialNew/PPEditorialNew-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Editorial New';
-  src: url('$lib/fonts/PPEditorialNew/PPEditorialNew-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Editorial New';
+	src: url('$lib/fonts/PPEditorialNew/PPEditorialNew-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Montreal';
-  src: url('$lib/fonts/PPNeueMontreal/PPNeueMontreal-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Neue Montreal';
+	src: url('$lib/fonts/PPNeueMontreal/PPNeueMontreal-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Montreal';
-  src: url('$lib/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Neue Montreal';
+	src: url('$lib/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Bit';
-  src: url('$lib/fonts/PPNeueBit/PPNeueBit-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Neue Bit';
+	src: url('$lib/fonts/PPNeueBit/PPNeueBit-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Bit';
-  src: url('$lib/fonts/PPNeueBit/PPNeueBit-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Neue Bit';
+	src: url('$lib/fonts/PPNeueBit/PPNeueBit-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Mondwest';
-  src: url('$lib/fonts/PPMondwest/PPMondwest-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Mondwest';
+	src: url('$lib/fonts/PPMondwest/PPMondwest-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Mondwest';
-  src: url('$lib/fonts/PPMondwest/PPMondwest-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Mondwest';
+	src: url('$lib/fonts/PPMondwest/PPMondwest-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Maragsa';
-  src: url('$lib/fonts/Maragsa/Maragsâ-Display.otf') format('otf');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Maragsa';
+	src: url('$lib/fonts/Maragsa/Maragsâ-Display.otf') format('otf');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Fraktion Mono';
-  src: url('$lib/fonts/PPFraktion/PPFraktionMono-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Fraktion Mono';
+	src: url('$lib/fonts/PPFraktion/PPFraktionMono-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Fraktion Mono';
-  src: url('$lib/fonts/PPFraktion/PPFraktionMono-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Fraktion Mono';
+	src: url('$lib/fonts/PPFraktion/PPFraktionMono-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Fraktion Mono';
-  src: url('$lib/fonts/PPFraktion/PPFraktionMono-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Fraktion Mono';
+	src: url('$lib/fonts/PPFraktion/PPFraktionMono-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 /* Cirka */
 @font-face {
-  font-family: 'Cirka';
-  src: url('$lib/fonts/PPCirka/PPCirka-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Cirka';
+	src: url('$lib/fonts/PPCirka/PPCirka-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Cirka';
-  src: url('$lib/fonts/PPCirka/PPCirka-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
+	font-family: 'Cirka';
+	src: url('$lib/fonts/PPCirka/PPCirka-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Cirka';
-  src: url('$lib/fonts/PPCirka/PPCirka-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Cirka';
+	src: url('$lib/fonts/PPCirka/PPCirka-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Cirka';
-  src: url('$lib/fonts/PPCirka/PPCirka-Semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
+	font-family: 'Cirka';
+	src: url('$lib/fonts/PPCirka/PPCirka-Semibold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Cirka';
-  src: url('$lib/fonts/PPCirka/PPCirka-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Cirka';
+	src: url('$lib/fonts/PPCirka/PPCirka-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
 }
 
 /* Migra */
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Extralight.woff2') format('woff2');
-  font-weight: 200;
-  font-style: normal;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Extralight.woff2') format('woff2');
+	font-weight: 200;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-ExtralightItalic.woff2') format('woff2');
-  font-weight: 200;
-  font-style: italic;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-ExtralightItalic.woff2') format('woff2');
+	font-weight: 200;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Italic.woff2') format('woff2');
-  font-weight: normal;
-  font-style: italic;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Italic.woff2') format('woff2');
+	font-weight: normal;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Extrabold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Extrabold.woff2') format('woff2');
+	font-weight: 800;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-ExtraboldItalic.woff2') format('woff2');
-  font-weight: 800;
-  font-style: italic;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-ExtraboldItalic.woff2') format('woff2');
+	font-weight: 800;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-BlackItalic.woff2') format('woff2');
-  font-weight: 900;
-  font-style: italic;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-BlackItalic.woff2') format('woff2');
+	font-weight: 900;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Migra';
-  src: url('$lib/fonts/PPMigra/PPMigra-Extrabold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
+	font-family: 'Migra';
+	src: url('$lib/fonts/PPMigra/PPMigra-Extrabold.woff2') format('woff2');
+	font-weight: 800;
+	font-style: normal;
 }
 
 /* Radikal */
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal Black.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal Black.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal Bold.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal Bold.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal Medium.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal Medium.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal Thin.woff2') format('woff2');
-  font-weight: 200;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal Thin.woff2') format('woff2');
+	font-weight: 200;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Radikal';
-  src: url('$lib/fonts/Radikal/Radikal UltraThin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
+	font-family: 'Radikal';
+	src: url('$lib/fonts/Radikal/Radikal UltraThin.woff2') format('woff2');
+	font-weight: 100;
+	font-style: normal;
 }
 
 /* Hyperwave */
 @font-face {
-  font-family: 'Hyperwave';
-  src: url('$lib/fonts/Hyperwave Display.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Hyperwave';
+	src: url('$lib/fonts/Hyperwave Display.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* Velura */
 @font-face {
-  font-family: 'Velura';
-  src: url('$lib/fonts/Velura-Personal License.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Velura';
+	src: url('$lib/fonts/Velura-Personal License.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* Reckless */
 @font-face {
-  font-family: 'Reckless';
-  src: url('$lib/fonts/Reckless.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Reckless';
+	src: url('$lib/fonts/Reckless.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /**
