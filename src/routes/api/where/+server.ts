@@ -7,18 +7,12 @@
 // IMPORTS ===================================================================================================  IMPORTS
 import {json, type RequestHandler} from "@sveltejs/kit";
 import {IPINFO_TOKEN} from "$lib/secrets";
+import type {TUserLocation} from "$lib/types";
 // END IMPORTS ==========================================================================================   END IMPORTS
 
 // VARIABLES ================================================================================================ VARIABLE
 // Type(s)
-export type TUserLocation = {
-  location: string;
-  coords: {
-    lat: number;
-    lon: number;
-  };
-  ip: `${number}.${number}.${number}.${number}`;
-};
+
 // Other(s)
 // END VARIABLES ======================================================================================= END VARIABLES
 

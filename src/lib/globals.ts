@@ -25,14 +25,17 @@ const songPlayer = {
 	}
 };
 
-
-
 export const style_vars = {
 	main_padding: padding,
 	header_height: headerHeight,
 	padding_top: `calc(2 * ${padding} + ${headerHeight})`,
 	songPlayer
 };
+
+export const globeVars = {
+	radius: 4,
+	segments: 64,
+}
 // END VARIABLES ======================================================================================= END VARIABLES
 
 // FUNCTIONS ================================================================================================ FUNCTIONS

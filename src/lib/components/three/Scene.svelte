@@ -1,17 +1,16 @@
 <script lang="ts">
   import { useTask } from '@threlte/core'
   import {interactivity, OrbitControls} from '@threlte/extras'
-  import {Color, PerspectiveCamera, TextureLoader, Vector3} from "three";
-  import {AsciiEffect} from "three/examples/jsm/effects/AsciiEffect";
+  import {PerspectiveCamera, TextureLoader, Vector3} from "three";
   import { T } from '@threlte/core'
   import {onMount} from "svelte";
-  import type {TUserLocation} from "../../../routes/api/where/+server";
+  import type {TUserLocation} from "$lib/types";
   import Globe from "$lib/components/three/Globe.svelte";
   import {lonLatToVector3} from "$lib/utils";
+  import {globeVars} from "$lib/globals";
 
   // Setup
   interactivity();
-  const textureLoader = new TextureLoader();
 
   // Variables
   // Types
@@ -23,56 +22,55 @@
   }
 
   // Refs
-  // let camera: PerspectiveCamera;
+  let camera: PerspectiveCamera;
+
+  const {
+    radius,
+    segments,
+  } = globeVars;
 
   const earthVars: TSphere = {
-    radius: 3,
-    segments: 64,
+    radius: radius,
+    segments: segments,
     rotation: 0.2,
-    speed: 0.0,
-  } as TSphere;
-
-  const cloudVars: TSphere = {
-    radius: 3.01,
-    segments: 64,
-    rotation: 7,
-    speed: 0.06,
+    speed: 0.01,
   } as TSphere;
 
   let userPosition: Vector3 = new Vector3(0, 0, 0);
 
+  /**
+   * User location, given by the API @ /api/where
+   *
+   * @type {TUserLocation}
+   */
   export let data: {
     userLocation: TUserLocation
   };
-
-  // const effect = new AsciiEffect(
-  //   camera,
-  //   ' .:-+*=%@#',
-  //   { invert: true }
-  // );
 
   // Functions
 
   // Watchers
   // $: userCoords && console.log(`[Scene] User location: ${JSON.stringify(userCoords)}`);
   $: if (data) {
+    const newCoords = lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, radius);
+
     userPosition = new Vector3(
-      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).x,
-      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).y,
-      lonLatToVector3(data.userLocation.coords.lon, data.userLocation.coords.lat, 5).z,
+      newCoords.x,
+      newCoords.y,
+      newCoords.z,
     );
   }
 
-  // $: if (camera && userPosition) {
-  //   // point the camera to the user's location
-  //   // make the camera closer to the earth
-  //   camera.position.set(
-  //     userPosition.x * 1.5,
-  //     userPosition.y * 1.5,
-  //     userPosition.z * 1.5
-  //   );
-  //   camera.lookAt(userPosition);
-  // }
+  $: if (camera && userPosition) {
+    // point the camera to the user's location
+    // make the camera closer to the earth
+    camera.position.set(
+      userPosition.x * 2.5,
+      userPosition.y * 2.5,
+      userPosition.z * 2.5
+    );
+    camera.lookAt([.0, .0, .0]);
+  }
 
   $: console.log(`[Scene] User location: ${JSON.stringify(userPosition)}`);
   // Lifecycle
@@ -83,7 +81,6 @@
 
   useTask((delta) => {
     earthVars.rotation += earthVars.speed * delta;
-    cloudVars.rotation += cloudVars.speed * delta;
   })
 </script>
 
@@ -93,51 +90,34 @@
   position={[8, 8, 8]}
 
   on:create={({ ref }) => {
-    ref.lookAt(0, 1, 0);
+    ref.lookAt(0, 0, 0);
+    camera = ref;
   }}
 >
   <OrbitControls />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight
-  position={[0, 10, 10]}
-  castShadow
-/>
-<T.AmbientLight intensity={0.5} />
 
-<!--&lt;!&ndash; Earth &ndash;&gt;-->
-<!--<T.Group rotation={[0, earthVars.rotation, 0]}>-->
-<!--  <T.Mesh>-->
-<!--    <T.SphereGeometry args={[earthVars.radius, earthVars.segments, earthVars.segments]} />-->
-<!--    <T.MeshPhongMaterial-->
-<!--      map={textureLoader.load('/imgs/2_no_clouds_4k.jpg')}-->
-<!--      bumpMap={textureLoader.load('/imgs/elev_bump_4k.jpg')}-->
-<!--      bumpScale={0.005}-->
-<!--      specularMap={textureLoader.load('/imgs/water_4k.png')}-->
-<!--      specular={new Color('grey')}-->
-<!--    />-->
-<!--  </T.Mesh>-->
+<T.Group rotation={[0, earthVars.rotation, 0]}>
 
-<!--  &lt;!&ndash; User Location Marker &ndash;&gt;-->
+  <!-- User Location Marker -->
   {#if data}
     <T.Mesh
           position={[userPosition.x, userPosition.y, userPosition.z]}
     >
       <T.SphereGeometry
-          args={[.01, 32, 32]}
+          args={[radius / 50, segments / 2, segments / 2]}
       />
       <T.MeshBasicMaterial color="red" />
     </T.Mesh>
+
+<!--    <UserMarker-->
+<!--      userLocation={data.userLocation}-->
+<!--      radius={earthVars.radius}-->
+<!--    />-->
   {/if}
-<!--</T.Group>-->
 
-<!--&lt;!&ndash; Clouds&ndash;&gt;-->
-<!--<T.Mesh rotation={[0, cloudVars.rotation, 0]}>-->
-<!--  <T.SphereGeometry args={[cloudVars.radius, cloudVars.segments, cloudVars.segments]} />-->
-<!--  <T.MeshPhongMaterial-->
-<!--    map={textureLoader.load('/imgs/fair_clouds_4k.png')}-->
-<!--    transparent-->
-<!--  />-->
-<!--</T.Mesh>-->
+  <Globe />
+</T.Group>
 
-<Globe />
+

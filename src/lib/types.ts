@@ -55,6 +55,15 @@ export type TPoint = {
   y: number;
   z: number;
 };
+
+export type TUserLocation = {
+  location: string;
+  coords: {
+    lat: number;
+    lon: number;
+  };
+  ip: `${number}.${number}.${number}.${number}`;
+};
 /**
  * End of file src/types.ts
  */

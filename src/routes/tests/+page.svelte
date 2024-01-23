@@ -49,7 +49,7 @@
 <Canvas>
   <Scene data={data}/>
 
-  <DebugInterface />
+<!--  <DebugInterface />-->
 </Canvas>
 
 <style lang="scss">
